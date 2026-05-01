@@ -34,14 +34,14 @@
             --max-w: 1200px;
 
             /* ── TYPE SCALE ── */
-            --h1:         clamp(2.5rem,  6.5vw,  6rem);
-            --h2:         clamp(2rem,    4vw,    3.5rem);
-            --h3:         clamp(1.5rem,  2.5vw,  2.5rem);
+            --h1:         clamp(2rem,    4.5vw,  4rem);
+            --h2:         clamp(1.75rem, 3.5vw,  3rem);
+            --h3:         clamp(1.375rem,2.5vw,  2.25rem);
             --h4:         clamp(1.25rem, 1.8vw,  1.75rem);
             --h5:         clamp(1.125rem,1.3vw,  1.375rem);
             --h6:         clamp(1rem,    1.1vw,  1.125rem);
-            --display:    clamp(3.5rem,  9vw,    9.5rem);
-            --display-xl: clamp(4.5rem,  11vw,   11.25rem);
+            --display:    clamp(3.5rem,  9vw,    5rem);
+            --display-xl: clamp(4.5rem,  11vw,   6rem);
             --lh-heading:       1.0;
             --lh-heading-tight: 0.95;
             --ls-heading:       0.03em;
@@ -105,17 +105,6 @@
         .fu { opacity: 0; transform: translateY(16px); will-change: transform, opacity; transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
         .fu.in { opacity: 1; transform: none; }
 
-        /* HEADER */
-        [data-comment="header"] {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 24px 56px; display: flex; align-items: center; justify-content: space-between;
-            transition: background .4s, border-color .4s; border-bottom: 1px solid transparent;
-        }
-        [data-comment="header"].scrolled { background: rgba(17,17,17,.92); backdrop-filter: blur(14px); border-color: var(--color-border); }
-        [data-comment="header-logo"] { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: #fff; text-decoration: none; letter-spacing: .04em; }
-        [data-comment="header-nav"] { display: flex; gap: 36px; list-style: none; }
-        .nav-link { font-size: 13px; color: var(--color-muted); text-decoration: none; transition: color .2s; }
-        .nav-link:hover { color: #fff; }
         /* ── BUTTON SYSTEM ──
            Types:  .btn-primary | .btn-secondary | .btn-link | .btn-icon
            Sizes:  .btn-sm | .btn-md (default) | .btn-lg
@@ -192,7 +181,10 @@
             align-items: center; justify-content: center;
             text-align: center; padding: 160px 56px 96px;
         }
-        [data-comment="hero-left"] { display: contents; }
+        [data-comment="hero-left"] {
+            display: flex; flex-direction: column; align-items: center;
+            max-width: 800px; width: 100%;
+        }
         /* ── TAG COMPONENT ── */
         .tag {
             display: inline-flex; align-items: center; gap: 8px;
@@ -211,8 +203,7 @@
 
         .tag svg { width: 14px; height: 14px; stroke-width: 1.5; flex-shrink: 0; color: var(--color-secondary); }
         [data-comment="hero-heading"] {
-            font-size: var(--h1);
-            line-height: var(--lh-heading-tight); margin-bottom: 40px;
+            font-size: var(--display); line-height: var(--lh-heading-tight); margin-bottom: 40px;
         }
         [data-comment="hero-accent"] { color: var(--color-secondary); }
         [data-comment="hero-sub"] {
@@ -423,8 +414,8 @@
         [data-comment="problem-inner"] { max-width: var(--max-w); margin: 0 auto; padding: 0 56px; text-align: center; }
         [data-comment="problem-label"] { margin-bottom: 40px; }
         [data-comment="problem-headline"] {
-            font-size: var(--h1); line-height: var(--lh-heading-tight);
-            margin-bottom: 32px;
+            line-height: var(--lh-heading-tight);
+            max-width: 900px; margin: 0 auto 32px;
         }
         [data-comment="problem-bridge"] {
             font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md);
@@ -468,7 +459,7 @@
         [data-comment="pos-section"] { padding: 140px 0; text-align: center; }
         [data-comment="pos-label"] { margin-bottom: 48px; }
         [data-comment="pos-headline"] {
-            font-size: var(--h1); font-weight: 800; line-height: var(--lh-heading-tight);
+            font-weight: 300; line-height: var(--lh-heading-tight); max-width: 700px; margin: 0 auto;
         }
         [data-comment="pos-accent"] { color: var(--color-secondary); display: block; }
         [data-comment="pos-sub"] { font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md); color: var(--color-muted); max-width: 400px; margin: 48px auto 0; }
@@ -476,11 +467,30 @@
         /* POS MOCKUP */
         [data-comment="pos-mockup"] {
             margin: 64px auto 0; width: 100%; max-width: 1440px;
-            padding: 0 24px;
-            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
-            mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
         }
         [data-comment="pos-mockup"] svg { display: block; width: 100%; height: auto; }
+
+        /* POS PILLARS */
+        [data-comment="pos-connector"] {
+            max-width: var(--max-w); margin: 0 auto; padding: 0 56px;
+        }
+        [data-comment="pos-connector"] svg { display: block; width: 100%; height: auto; }
+        [data-comment="pos-pillars"] {
+            display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+            max-width: var(--max-w); margin: 0 auto; padding: 0 56px; text-align: left;
+        }
+        [data-comment^="pos-pillar-"] {
+            flex: 1; min-width: 220px;
+            border: 1px solid var(--color-border);
+            border-radius: 12px; padding: 24px 28px;
+            background: #171717;
+        }
+        .pos-pillar-title {
+            display: flex; align-items: center; gap: 10px;
+            font-size: var(--body-lg); font-weight: 600; color: var(--color-text); margin-bottom: 8px;
+        }
+        .pos-pillar-title i, .pos-pillar-title svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--color-secondary); stroke: var(--color-secondary); }
+        .pos-pillar-body { font-size: var(--body-sm); color: var(--color-muted); line-height: var(--lh-body-sm); }
 
         /* BUILD */
         [data-comment="build-section"] {
@@ -488,56 +498,43 @@
             background: linear-gradient(to bottom, transparent 0%, var(--color-primary) 10% 90%, transparent 100%);
         }
         [data-comment="build-label"] { margin-bottom: 64px; }
-        [data-comment="build-headline"] { font-size: var(--h2); margin-bottom: 24px; }
+        [data-comment="build-headline"] { margin-bottom: 24px; }
         [data-comment="build-sub"] {
             font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md);
             color: var(--color-muted); max-width: 560px; margin-bottom: 64px;
         }
         [data-comment="build-list"] { list-style: none; border-top: 1px solid var(--color-border); }
         .build-row {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 28px 0; border-bottom: 1px solid var(--color-border);
-            cursor: default; transition: border-color .2s;
+            display: flex; align-items: flex-start; gap: 24px;
+            padding: 32px 0; border-bottom: 1px solid var(--color-border);
         }
-        .build-row:hover { border-color: var(--color-secondary); }
-        .build-row-left { display: flex; align-items: center; gap: 24px; }
-        .build-row-num { font-family: var(--font-body); font-size: 11px; color: var(--color-muted); width: 24px; flex-shrink: 0; }
-        .build-row-name { font-family: var(--font-display); font-size: var(--h4); font-weight: 300; letter-spacing: var(--ls-heading); color: #fff; transition: color .2s; }
-        .build-row:hover .build-row-name { color: var(--color-secondary); }
-        .build-row-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .build-row-num { font-family: var(--font-body); font-size: 11px; color: var(--color-muted); width: 24px; flex-shrink: 0; padding-top: 4px; }
+        .build-row-content { display: flex; flex-direction: column; gap: 10px; }
+        .build-row-name { font-family: var(--font-display); font-size: var(--h4); font-weight: 300; letter-spacing: var(--ls-heading); color: #fff; }
+        .build-row-desc { font-family: var(--font-body); font-size: var(--body-sm); font-weight: 300; color: var(--color-muted); line-height: 1.5; }
+        .build-row-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .build-row-tags .tag {
-            color: rgba(255,255,255,0.0);
-            background: rgba(255,255,255,0.0);
-            border-color: rgba(255,255,255,0.0);
-            pointer-events: none;
-            transition: color .25s, border-color .25s, background .25s;
-        }
-        .build-row:hover .build-row-tags .tag {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255,255,255,0.75);
             background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.18);
         }
 
         /* ONE PLACE */
         [data-comment="one-section"] { padding: 140px 0; }
         [data-comment="one-label"] { margin-bottom: 64px; }
         [data-comment="one-headline"] {
-            font-size: var(--h1);
             line-height: var(--lh-heading-tight); margin-bottom: 40px;
         }
         [data-comment="one-sub"] { font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md); color: var(--color-muted); max-width: 360px; }
         [data-comment="one-mockup"] {
             margin: 64px auto 0; width: 100%; max-width: 1440px;
-            padding: 0 24px;
-            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
-            mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
         }
         [data-comment="one-mockup"] svg { display: block; width: 100%; height: auto; }
 
         /* PROCESS */
         [data-comment="process-section"] { padding: 140px 0; }
         [data-comment="process-label"] { margin-bottom: 64px; }
-        [data-comment="process-headline"] { font-size: var(--h2); margin-bottom: 88px; max-width: 720px; }
+        [data-comment="process-headline"] { margin-bottom: 88px; max-width: 720px; }
         [data-comment="process-grid"] {
             display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
             background: var(--color-border);
@@ -1048,7 +1045,7 @@
         /* PROOF */
         [data-comment="proof-section"] { padding: 140px 0; }
         [data-comment="proof-label"] { margin-bottom: 64px; }
-        [data-comment="proof-headline"] { font-size: var(--h2); margin-bottom: 56px; }
+        [data-comment="proof-headline"] { margin-bottom: 56px; }
         [data-comment="proof-grid"] { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
         .proof-card {
             background: rgba(255,255,255,.04); border: 1px solid var(--color-border);
@@ -1071,8 +1068,7 @@
         [data-comment="cta-inner"] { display: flex; flex-direction: column; align-items: center; }
         [data-comment="cta-label"] { margin-bottom: 48px; }
         [data-comment="cta-headline"] {
-            font-size: var(--h1);
-            line-height: var(--lh-heading); max-width: 800px; margin-bottom: 16px;
+            font-size: var(--display); line-height: var(--lh-heading); max-width: 800px; margin-bottom: 16px;
         }
         [data-comment="cta-headline-bold"] { color: var(--color-secondary); }
         [data-comment="cta-micro"] { display: block; font-size: 14px; font-weight: 300; color: var(--color-muted); margin-bottom: 32px; }
@@ -1200,7 +1196,6 @@
             [data-comment="process-section"] .wrap,
             [data-comment="proof-section"] .wrap,
             [data-comment="cta-section"], [data-comment="footer"] { padding-left: 24px; padding-right: 24px; }
-            [data-comment="header-nav"] { display: none; }
             [data-comment="hero-section"] { padding: 140px 24px 72px; }
             [data-comment="hero-right"] { grid-template-columns: 1fr; }
             [data-comment="problem-inner"] { grid-template-columns: 1fr; gap: 48px; padding-left: 24px; padding-right: 24px; }
@@ -1215,16 +1210,6 @@
 </head>
 <body>
 
-<header data-comment="header">
-    <a href="#" data-comment="header-logo">Rivne Tech</a>
-    <nav><ul data-comment="header-nav">
-        <li><a href="#build" class="nav-link" data-comment="header-nav-solutions">Solutions</a></li>
-        <li><a href="#process" class="nav-link" data-comment="header-nav-process">How we work</a></li>
-        <li><a href="#" class="nav-link" data-comment="header-nav-about">About</a></li>
-        <li><a href="#cta" class="nav-link" data-comment="header-nav-contact">Contact</a></li>
-    </ul></nav>
-    <a href="#" data-cu-open data-comment="header-cta" class="btn btn-primary btn-sm">Let's Talk</a>
-</header>
 
 <section data-comment="hero-section">
     <div data-comment="hero-left">
@@ -1233,9 +1218,9 @@
             ERP-Connected Systems
         </div>
         <h1 data-comment="hero-heading" class="fu">
-            We extend what<br>your ERP <span data-comment="hero-accent">can't</span>
+            Supercharge your <span data-comment="hero-accent">ERP experience</span>
         </h1>
-        <p data-comment="hero-sub" class="fu">Custom operational systems built around how your business actually works — not how your ERP assumes it does.</p>
+        <p data-comment="hero-sub" class="fu">Custom ERP-connected systems that replace spreadsheets and disconnected tools with one operational source of truth.</p>
         <div data-comment="hero-ctas" class="fu">
             <a href="#" data-cu-open data-comment="hero-cta-primary" class="btn btn-primary btn-lg">Let's Talk</a>
             <a href="#build" data-comment="hero-cta-secondary" class="btn btn-secondary btn-lg">See what we build</a>
@@ -1406,7 +1391,7 @@
 <section data-comment="problem-section">
     <div data-comment="problem-inner">
         <span class="fu tag" data-comment="problem-label"><i data-lucide="alert-circle" data-comment="problem-label-icon"></i>The Patchwork</span>
-        <h2 data-comment="problem-headline" class="fu">Your ERP is fine<br>Your operations aren't</h2>
+        <h1 data-comment="problem-headline" class="fu">Stitching tools together?<br>You've <span style="color:var(--color-secondary)">outgrown them</span></h1>
         <p data-comment="problem-bridge" class="fu">Your operation isn't messy — it's nuanced. The system should carry that nuance.</p>
         <div data-comment="problem-tags" class="fu">
             <div class="problem-row problem-row--reverse" data-comment="problem-row-1">
@@ -1458,17 +1443,15 @@
 <section data-comment="pos-section">
     <div class="wrap">
         <span class="fu tag" data-comment="pos-label"><i data-lucide="zap" data-comment="pos-label-icon"></i>What We Do</span>
-        <h2 data-comment="pos-headline" class="fu">
-            Not a replacement
-            <span data-comment="pos-accent">An extension</span>
-        </h2>
-        <p data-comment="pos-sub" class="fu">We don't touch your ERP. We build around it — filling the gaps where operations actually happen.</p>
+        <h1 data-comment="pos-headline" class="fu">We don't replace your ERP — we extend it</h1>
+        <p data-comment="pos-sub" class="fu">The missing systems on top of your ERP</p>
+
         <a href="#" data-cu-open data-comment="pos-cta" class="fu btn btn-primary btn-lg" style="margin-top: 40px;">Book a walkthrough</a>
     </div>
     <div class="fu" data-comment="pos-mockup">
-        <svg viewBox="0 0 1400 820" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1400 806" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- App window -->
-            <rect x="40" y="56" width="1320" height="740" rx="14" fill="rgba(20,20,22,0.88)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <rect x="40" y="56" width="1320" height="750" rx="14" fill="rgba(20,20,22,0.88)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
 
             <!-- Top toolbar divider -->
             <line x1="40" y1="102" x2="1360" y2="102" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
@@ -1601,9 +1584,9 @@
                 <g transform="translate(458,94)">
                     <text x="0" y="0" font-family="Roboto,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.78)">QA check</text>
                     <text x="60" y="0" font-family="Roboto,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)">23</text>
-                    <g transform="translate(0,14)"><rect width="198" height="58" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/><rect x="10" y="10" width="22" height="15" rx="3.5" fill="rgba(139,92,246,0.22)" stroke="rgba(139,92,246,0.5)" stroke-width="0.8"/><text x="21" y="21" font-family="Roboto,sans-serif" font-size="8.5" font-weight="500" fill="rgba(237,233,254,1)" text-anchor="middle">D11</text><text x="42" y="22" font-family="Roboto,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.92)">#71985</text><text x="10" y="42" font-family="Roboto,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)">Atlas Outdoor 24×40</text><g transform="translate(10,48)"><circle cx="5" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 2.5 5 L 4.5 7 L 8 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="21" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 18.5 5 L 20.5 7 L 24 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="37" cy="5" r="5" fill="rgba(234,179,8,0.3)" stroke="rgba(234,179,8,0.65)" stroke-width="0.8"/><circle cx="53" cy="5" r="5" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="0.8"/></g></g>
-                    <g transform="translate(0,82)"><rect width="198" height="58" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/><rect x="10" y="10" width="22" height="15" rx="3.5" fill="rgba(34,197,94,0.22)" stroke="rgba(34,197,94,0.5)" stroke-width="0.8"/><text x="21" y="21" font-family="Roboto,sans-serif" font-size="8.5" font-weight="500" fill="rgba(220,252,231,1)" text-anchor="middle">D1</text><text x="42" y="22" font-family="Roboto,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.92)">#71983</text><text x="10" y="42" font-family="Roboto,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)">Atlas Outdoor 10×12</text><g transform="translate(10,48)"><circle cx="5" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 2.5 5 L 4.5 7 L 8 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="21" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 18.5 5 L 20.5 7 L 24 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="37" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 34.5 5 L 36.5 7 L 40 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="53" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 50.5 5 L 52.5 7 L 56 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></g></g>
-                    <g transform="translate(0,150)"><rect width="198" height="58" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/><rect x="10" y="10" width="22" height="15" rx="3.5" fill="rgba(59,130,246,0.22)" stroke="rgba(59,130,246,0.5)" stroke-width="0.8"/><text x="21" y="21" font-family="Roboto,sans-serif" font-size="8.5" font-weight="500" fill="rgba(219,234,254,1)" text-anchor="middle">D2</text><text x="42" y="22" font-family="Roboto,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.92)">#71982</text><text x="10" y="42" font-family="Roboto,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)">Atlas Outdoor 8×8</text><g transform="translate(10,48)"><circle cx="5" cy="5" r="5" fill="rgba(239,68,68,0.3)" stroke="rgba(239,68,68,0.65)" stroke-width="0.8"/><path d="M 3 3 L 7 7 M 7 3 L 3 7" stroke="#fff" stroke-width="1" stroke-linecap="round"/><circle cx="21" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 18.5 5 L 20.5 7 L 24 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="37" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 34.5 5 L 36.5 7 L 40 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></g></g>
+                    <g transform="translate(0,14)"><rect width="198" height="66" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/><rect x="10" y="10" width="22" height="15" rx="3.5" fill="rgba(139,92,246,0.22)" stroke="rgba(139,92,246,0.5)" stroke-width="0.8"/><text x="21" y="21" font-family="Roboto,sans-serif" font-size="8.5" font-weight="500" fill="rgba(237,233,254,1)" text-anchor="middle">D11</text><text x="42" y="22" font-family="Roboto,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.92)">#71985</text><text x="10" y="42" font-family="Roboto,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)">Atlas Outdoor 24×40</text><g transform="translate(10,48)"><circle cx="5" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 2.5 5 L 4.5 7 L 8 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="21" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 18.5 5 L 20.5 7 L 24 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="37" cy="5" r="5" fill="rgba(234,179,8,0.3)" stroke="rgba(234,179,8,0.65)" stroke-width="0.8"/><circle cx="53" cy="5" r="5" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="0.8"/></g></g>
+                    <g transform="translate(0,90)"><rect width="198" height="66" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/><rect x="10" y="10" width="22" height="15" rx="3.5" fill="rgba(34,197,94,0.22)" stroke="rgba(34,197,94,0.5)" stroke-width="0.8"/><text x="21" y="21" font-family="Roboto,sans-serif" font-size="8.5" font-weight="500" fill="rgba(220,252,231,1)" text-anchor="middle">D1</text><text x="42" y="22" font-family="Roboto,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.92)">#71983</text><text x="10" y="42" font-family="Roboto,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)">Atlas Outdoor 10×12</text><g transform="translate(10,48)"><circle cx="5" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 2.5 5 L 4.5 7 L 8 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="21" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 18.5 5 L 20.5 7 L 24 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="37" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 34.5 5 L 36.5 7 L 40 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="53" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 50.5 5 L 52.5 7 L 56 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></g></g>
+                    <g transform="translate(0,166)"><rect width="198" height="66" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/><rect x="10" y="10" width="22" height="15" rx="3.5" fill="rgba(59,130,246,0.22)" stroke="rgba(59,130,246,0.5)" stroke-width="0.8"/><text x="21" y="21" font-family="Roboto,sans-serif" font-size="8.5" font-weight="500" fill="rgba(219,234,254,1)" text-anchor="middle">D2</text><text x="42" y="22" font-family="Roboto,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.92)">#71982</text><text x="10" y="42" font-family="Roboto,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.45)">Atlas Outdoor 8×8</text><g transform="translate(10,48)"><circle cx="5" cy="5" r="5" fill="rgba(239,68,68,0.3)" stroke="rgba(239,68,68,0.65)" stroke-width="0.8"/><path d="M 3 3 L 7 7 M 7 3 L 3 7" stroke="#fff" stroke-width="1" stroke-linecap="round"/><circle cx="21" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 18.5 5 L 20.5 7 L 24 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="37" cy="5" r="5" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.65)" stroke-width="0.8"/><path d="M 34.5 5 L 36.5 7 L 40 3.5" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></g></g>
                 </g>
 
                 <!-- Column: Ready to ship -->
@@ -1668,73 +1651,129 @@
             </g>
         </svg>
     </div>
+    <div data-comment="pos-connector" class="fu">
+        <svg viewBox="0 0 1088 64" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M 544 0 C 544 32, 176 32, 176 64" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+            <path d="M 544 0 L 544 64" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+            <path d="M 544 0 C 544 32, 912 32, 912 64" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+        </svg>
+    </div>
+    <div data-comment="pos-pillars" class="fu">
+        <div data-comment="pos-pillar-1">
+            <p class="pos-pillar-title"><i data-lucide="settings-2"></i>Built around your workflow</p>
+            <p class="pos-pillar-body">Rules, exceptions, ownership</p>
+        </div>
+        <div data-comment="pos-pillar-2">
+            <p class="pos-pillar-title"><i data-lucide="plug"></i>Connected to your ERP</p>
+            <p class="pos-pillar-body">Reduce duplicate entry, keep a single truth</p>
+        </div>
+        <div data-comment="pos-pillar-3">
+            <p class="pos-pillar-title"><i data-lucide="layout-dashboard"></i>One place to run the work</p>
+            <p class="pos-pillar-body">Visibility + accountability across teams</p>
+        </div>
+    </div>
 </section>
 
 <section data-comment="build-section" id="build">
     <div class="wrap">
         <span class="fu tag" data-comment="build-label"><i data-lucide="wrench" data-comment="build-label-icon"></i>What We Build</span>
-        <h2 data-comment="build-headline" class="fu">Built for operations</h2>
+        <h2 data-comment="build-headline" class="fu">Common 'missing pieces' we build</h2>
         <p data-comment="build-sub" class="fu">Modular systems that slot into your workflow — standalone, or connected to your ERP. Each capability is shaped around how your team already works.</p>
         <ul data-comment="build-list">
             <li class="build-row fu" data-comment="build-item-1">
-                <div class="build-row-left">
-                    <span class="build-row-num" data-comment="build-item-1-num">01</span>
-                    <span class="build-row-name" data-comment="build-item-1-name">Production Scheduling</span>
-                </div>
-                <div class="build-row-tags" data-comment="build-item-1-tags">
-                    <span class="tag" data-comment="build-item-1-tag-1">Capacity Planning</span>
-                    <span class="tag" data-comment="build-item-1-tag-2">Job Queues</span>
-                    <span class="tag" data-comment="build-item-1-tag-3">Load Visibility</span>
+                <span class="build-row-num" data-comment="build-item-1-num">01</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-1-name">Production Scheduling & Capacity Planning</span>
+                    <p class="build-row-desc" data-comment="build-item-1-desc">Always know what's on the floor and what's next</p>
+                    <div class="build-row-tags" data-comment="build-item-1-tags">
+                        <span class="tag">Capacity Planning</span>
+                        <span class="tag">Job Queues</span>
+                        <span class="tag">Load Visibility</span>
+                    </div>
                 </div>
             </li>
             <li class="build-row fu" data-comment="build-item-2">
-                <div class="build-row-left">
-                    <span class="build-row-num" data-comment="build-item-2-num">02</span>
-                    <span class="build-row-name" data-comment="build-item-2-name">Order Visibility</span>
-                </div>
-                <div class="build-row-tags" data-comment="build-item-2-tags">
-                    <span class="tag" data-comment="build-item-2-tag-1">Quote to Delivery</span>
-                    <span class="tag" data-comment="build-item-2-tag-2">Status Tracking</span>
+                <span class="build-row-num" data-comment="build-item-2-num">02</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-2-name">Order Visibility & Status Management</span>
+                    <p class="build-row-desc" data-comment="build-item-2-desc">Every order status in one place — no chasing</p>
+                    <div class="build-row-tags" data-comment="build-item-2-tags">
+                        <span class="tag">Quote to Delivery</span>
+                        <span class="tag">Status Tracking</span>
+                        <span class="tag">Customer Updates</span>
+                    </div>
                 </div>
             </li>
             <li class="build-row fu" data-comment="build-item-3">
-                <div class="build-row-left">
-                    <span class="build-row-num" data-comment="build-item-3-num">03</span>
-                    <span class="build-row-name" data-comment="build-item-3-name">Vendor Tracking</span>
-                </div>
-                <div class="build-row-tags" data-comment="build-item-3-tags">
-                    <span class="tag" data-comment="build-item-3-tag-1">Lead Times</span>
-                    <span class="tag" data-comment="build-item-3-tag-2">Component Status</span>
+                <span class="build-row-num" data-comment="build-item-3-num">03</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-3-name">Vendor / Component Tracking</span>
+                    <p class="build-row-desc" data-comment="build-item-3-desc">Track lead times and parts before they become a problem</p>
+                    <div class="build-row-tags" data-comment="build-item-3-tags">
+                        <span class="tag">Lead Times</span>
+                        <span class="tag">Component Status</span>
+                        <span class="tag">Supplier Alerts</span>
+                    </div>
                 </div>
             </li>
             <li class="build-row fu" data-comment="build-item-4">
-                <div class="build-row-left">
-                    <span class="build-row-num" data-comment="build-item-4-num">04</span>
-                    <span class="build-row-name" data-comment="build-item-4-name">Approval Workflows</span>
-                </div>
-                <div class="build-row-tags" data-comment="build-item-4-tags">
-                    <span class="tag" data-comment="build-item-4-tag-1">Role-based</span>
-                    <span class="tag" data-comment="build-item-4-tag-2">Audit Trail</span>
+                <span class="build-row-num" data-comment="build-item-4-num">04</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-4-name">Exceptions & On-Hold Workflows</span>
+                    <p class="build-row-desc" data-comment="build-item-4-desc">Flag, route, and resolve blockers without email chains</p>
+                    <div class="build-row-tags" data-comment="build-item-4-tags">
+                        <span class="tag">Hold Queues</span>
+                        <span class="tag">Escalation Rules</span>
+                        <span class="tag">Resolution Tracking</span>
+                    </div>
                 </div>
             </li>
             <li class="build-row fu" data-comment="build-item-5">
-                <div class="build-row-left">
-                    <span class="build-row-num" data-comment="build-item-5-num">05</span>
-                    <span class="build-row-name" data-comment="build-item-5-name">Dispatch Coordination</span>
-                </div>
-                <div class="build-row-tags" data-comment="build-item-5-tags">
-                    <span class="tag" data-comment="build-item-5-tag-1">Team Scheduling</span>
-                    <span class="tag" data-comment="build-item-5-tag-2">Field Assignments</span>
+                <span class="build-row-num" data-comment="build-item-5-num">05</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-5-name">Customer Approvals / Portals</span>
+                    <p class="build-row-desc" data-comment="build-item-5-desc">Give customers a window into their order without calls</p>
+                    <div class="build-row-tags" data-comment="build-item-5-tags">
+                        <span class="tag">Approval Gates</span>
+                        <span class="tag">Client Portal</span>
+                        <span class="tag">Sign-off History</span>
+                    </div>
                 </div>
             </li>
             <li class="build-row fu" data-comment="build-item-6">
-                <div class="build-row-left">
-                    <span class="build-row-num" data-comment="build-item-6-num">06</span>
-                    <span class="build-row-name" data-comment="build-item-6-name">Operational Dashboards</span>
+                <span class="build-row-num" data-comment="build-item-6-num">06</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-6-name">Dispatch / Install Coordination</span>
+                    <p class="build-row-desc" data-comment="build-item-6-desc">Schedule field teams and track site work in real time</p>
+                    <div class="build-row-tags" data-comment="build-item-6-tags">
+                        <span class="tag">Team Scheduling</span>
+                        <span class="tag">Field Assignments</span>
+                        <span class="tag">Site Updates</span>
+                    </div>
                 </div>
-                <div class="build-row-tags" data-comment="build-item-6-tags">
-                    <span class="tag" data-comment="build-item-6-tag-1">Live Metrics</span>
-                    <span class="tag" data-comment="build-item-6-tag-2">Real-time Alerts</span>
+            </li>
+            <li class="build-row fu" data-comment="build-item-7">
+                <span class="build-row-num" data-comment="build-item-7-num">07</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-7-name">Quality / Inspection Tracking</span>
+                    <p class="build-row-desc" data-comment="build-item-7-desc">Log inspections, flag defects, close the loop before delivery</p>
+                    <div class="build-row-tags" data-comment="build-item-7-tags">
+                        <span class="tag">Inspection Logs</span>
+                        <span class="tag">Pass/Fail Tracking</span>
+                        <span class="tag">Defect Reports</span>
+                    </div>
+                </div>
+            </li>
+            <li class="build-row fu" data-comment="build-item-8">
+                <span class="build-row-num" data-comment="build-item-8-num">08</span>
+                <div class="build-row-content">
+                    <span class="build-row-name" data-comment="build-item-8-name">Operations Dashboards & Alerts</span>
+                    <p class="build-row-desc" data-comment="build-item-8-desc">Live visibility across all active work, all at once</p>
+                    <div class="build-row-tags" data-comment="build-item-8-tags">
+                        <span class="tag">Live Metrics</span>
+                        <span class="tag">Real-time Alerts</span>
+                        <span class="tag">Custom Views</span>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -1749,9 +1788,9 @@
         <a href="#" data-cu-open data-comment="one-cta" class="fu btn btn-primary btn-lg" style="margin-top: 40px;">Plan your build</a>
     </div>
     <div class="fu" data-comment="one-mockup">
-        <svg viewBox="0 0 1400 820" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1400 694" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- App window -->
-            <rect x="40" y="56" width="1320" height="740" rx="14" fill="rgba(20,20,22,0.88)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <rect x="40" y="56" width="1320" height="598" rx="14" fill="rgba(20,20,22,0.88)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
 
             <!-- Top toolbar divider -->
             <line x1="40" y1="102" x2="1360" y2="102" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
@@ -1804,7 +1843,7 @@
             <!-- Divider under toolbar -->
             <line x1="40" y1="170" x2="1360" y2="170" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
             <!-- Vertical separator: main | sidebar -->
-            <line x1="1050" y1="102" x2="1050" y2="796" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <line x1="1050" y1="102" x2="1050" y2="654" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
 
             <!-- Column headers: day + date paired -->
             <text x="150" y="196" font-family="Roboto,sans-serif" font-size="10" letter-spacing="0.12em" font-weight="500" text-anchor="middle"><tspan fill="rgba(255,255,255,0.5)">MON</tspan><tspan fill="rgba(255,255,255,0.3)" dx="8" letter-spacing="0">28</tspan></text>
@@ -1982,8 +2021,8 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="step-card-title" data-comment="process-step-2-title">System design before a line of code</h3>
-                <p class="step-card-desc" data-comment="process-step-2-desc">Data models, role permissions, and screen-by-screen flows — reviewed and signed off together. Fewer surprises during the build, less rework after launch.</p>
+                <h3 class="step-card-title" data-comment="process-step-2-title">A clickable prototype before a line of code</h3>
+                <p class="step-card-desc" data-comment="process-step-2-desc">Screen-by-screen flows you can actually click through — reviewed and signed off together. Real navigation, real feedback, before a single line of production code is written.</p>
             </article>
             <article class="step-card" data-comment="process-step-3">
                 <span class="step-card-fig" data-comment="process-step-3-fig">Step 03</span>
@@ -2116,7 +2155,8 @@
                 <div data-comment="footer-col-navigate">
                     <span class="footer-col-title" data-comment="footer-col-navigate-title">Navigate</span>
                     <ul class="footer-col-list" data-comment="footer-col-navigate-list">
-                        <li><a href="#build" class="footer-link" data-comment="footer-link-solutions">Solutions</a></li>
+                        <li><a href="solutions.html" class="footer-link" data-comment="footer-link-solutions">Solutions</a></li>
+                        <li><a href="industries.html" class="footer-link" data-comment="footer-link-industries">Industries</a></li>
                         <li><a href="#process" class="footer-link" data-comment="footer-link-process">How we work</a></li>
                     </ul>
                 </div>
@@ -2217,8 +2257,6 @@
         });
     });
 
-    const header = document.querySelector('[data-comment="header"]');
-    window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 40), { passive: true });
 
     const io = new IntersectionObserver(entries => {
         entries.forEach(e => {
@@ -2345,5 +2383,6 @@
         requestAnimationFrame(tick);
     })();
 </script>
+<script src="components/header.js"></script>
 </body>
 </html>
