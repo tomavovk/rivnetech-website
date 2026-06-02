@@ -27,7 +27,7 @@
             --color-accent:    #C5FF00;
             --color-surface:   #FFFFFF;
             --color-text:      #FFFFFF;
-            --color-muted:     rgba(255,255,255,0.38);
+            --color-muted:     rgba(255,255,255,0.58);
             --color-border:    rgba(255,255,255,0.08);
             --font-display:    'VioletSans', sans-serif;
             --font-body:       'Roboto', sans-serif;
@@ -114,8 +114,10 @@
             background: rgba(17,17,17,.92); backdrop-filter: blur(14px); border-color: var(--color-border);
         }
         [data-comment="header-logo"] {
-            font-family: var(--font-display); font-weight: 800; font-size: 16px;
-            color: #fff; text-decoration: none; letter-spacing: .04em;
+            display: inline-flex; align-items: center; text-decoration: none;
+        }
+        [data-comment="header-logo"] img {
+            height: 28px; width: auto; display: block;
         }
         [data-comment="header-nav"] { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
         .nav-link { font-size: 13px; color: var(--color-muted); text-decoration: none; transition: color .2s; }
@@ -229,9 +231,28 @@
         [data-comment="hero-ctas"] { display: flex; align-items: center; gap: 20px; }
         /* Stat cards */
         [data-comment="hero-right"] {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 12px; width: 100%; max-width: var(--max-w); margin-top: 112px;
+            width: 100%; max-width: var(--max-w); margin-top: 72px;
         }
+        [data-comment="hero-video-placeholder"] {
+            position: relative; width: 100%; aspect-ratio: 16 / 9;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 16px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        [data-comment="hero-video-placeholder"]::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 60%, rgba(139,92,246,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-video-play {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .hero-video-play svg { margin-left: 3px; }
         .hero-stat {
             background: var(--color-primary);
             border: 1px solid rgba(255,255,255,0.09);
@@ -1227,7 +1248,9 @@
 <body>
 
 <header data-comment="header">
-    <a href="index.html" data-comment="header-logo">Rivne Tech</a>
+    <a href="index.html" data-comment="header-logo">
+        <img src="Logo/Logo2.png" alt="Rivne Tech">
+    </a>
     <nav>
         <ul data-comment="header-nav">
             <li><a href="solutions.html" class="nav-link" data-comment="header-nav-solutions">Solutions</a></li>
@@ -1254,163 +1277,12 @@
         </div>
     </div>
     <div data-comment="hero-right">
-        <div class="hero-stat fu" data-comment="hero-stat-1">
-            <div class="hero-stat-visual" data-comment="hero-stat-1-visual">
-                <div class="hero-vis-wrap">
-                    <div class="hero-app">
-                        <div class="hero-app-head">
-                            <span class="hero-app-title">Production Schedule</span>
-                            <span class="hero-app-badge">Week 47</span>
-                        </div>
-                        <div class="hero-app-toolbar">
-                            <span class="hero-chip">All lines <span class="hero-chip-caret">▾</span></span>
-                            <span class="hero-chip">Active only <span class="hero-chip-caret">▾</span></span>
-                        </div>
-                        <div class="hero-sched-table">
-                            <div class="hero-sched-row">
-                                <span class="hero-sched-line">Line A</span>
-                                <span class="hero-sched-product">Acme Corp</span>
-                                <span class="hero-sched-qty">48 units</span>
-                                <span class="hero-sched-status hero-sched-active">Active</span>
-                            </div>
-                            <div class="hero-sched-row">
-                                <span class="hero-sched-line">Line B</span>
-                                <span class="hero-sched-product">Globex</span>
-                                <span class="hero-sched-qty">32 units</span>
-                                <span class="hero-sched-status hero-sched-planned">Planned</span>
-                            </div>
-                            <div class="hero-sched-row">
-                                <span class="hero-sched-line">Line C</span>
-                                <span class="hero-sched-product">Initech Co.</span>
-                                <span class="hero-sched-qty">17 units</span>
-                                <span class="hero-sched-status hero-sched-done">Done</span>
-                            </div>
-                            <div class="hero-sched-row">
-                                <span class="hero-sched-line">Line D</span>
-                                <span class="hero-sched-product">Vandelay</span>
-                                <span class="hero-sched-qty">29 units</span>
-                                <span class="hero-sched-status hero-sched-planned">Planned</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div data-comment="hero-video-placeholder" class="fu">
+            <div class="hero-video-play">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <polygon points="7,4 17,10 7,16" fill="rgba(255,255,255,0.9)"/>
+                </svg>
             </div>
-            <span class="hero-stat-val" data-comment="hero-stat-1-val">14 to 1</span>
-            <span class="hero-stat-label" data-comment="hero-stat-1-label">Excel files replaced with one scheduling system</span>
-        </div>
-        <div class="hero-stat fu" data-comment="hero-stat-2">
-            <div class="hero-stat-visual" data-comment="hero-stat-2-visual">
-                <div class="hero-vis-wrap">
-                    <div class="hero-app">
-                        <div class="hero-app-head">
-                            <span class="hero-app-title">PO Approvals</span>
-                            <span class="hero-app-badge">12</span>
-                        </div>
-                        <div class="hero-po-table">
-                            <div class="hero-po-row">
-                                <div class="hero-po-meta">
-                                    <span class="hero-po-id">PO #481</span>
-                                    <span class="hero-po-company">Acme Corp</span>
-                                </div>
-                                <span class="hero-po-amount">$14,200</span>
-                                <div class="hero-po-right">
-                                    <span class="hero-po-status hero-po-approved">Approved</span>
-                                    <span class="hero-po-time">4h</span>
-                                </div>
-                            </div>
-                            <div class="hero-po-row">
-                                <div class="hero-po-meta">
-                                    <span class="hero-po-id">PO #482</span>
-                                    <span class="hero-po-company">Globex</span>
-                                </div>
-                                <span class="hero-po-amount">$8,400</span>
-                                <div class="hero-po-right">
-                                    <span class="hero-po-status hero-po-review">Under review</span>
-                                    <span class="hero-po-time">1h ago</span>
-                                </div>
-                            </div>
-                            <div class="hero-po-row">
-                                <div class="hero-po-meta">
-                                    <span class="hero-po-id">PO #483</span>
-                                    <span class="hero-po-company">Initech</span>
-                                </div>
-                                <span class="hero-po-amount">$22,100</span>
-                                <div class="hero-po-right">
-                                    <span class="hero-po-status hero-po-pending">Pending</span>
-                                    <span class="hero-po-time">Just now</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <span class="hero-stat-val" data-comment="hero-stat-2-val">3 days to 4h</span>
-            <span class="hero-stat-label" data-comment="hero-stat-2-label">Approval cycle cut after workflow automation</span>
-        </div>
-        <div class="hero-stat fu" data-comment="hero-stat-3">
-            <div class="hero-stat-visual" data-comment="hero-stat-3-visual">
-                <div class="hero-vis-wrap">
-                    <div class="hero-order-panel">
-                        <div class="hero-order-head">
-                            <span class="hero-order-title">Order #2847</span>
-                            <span class="hero-order-live">
-                                <svg width="6" height="6" viewBox="0 0 6 6" fill="none">
-                                    <circle cx="3" cy="3" r="3" fill="rgba(197,255,0,1)">
-                                        <animate attributeName="opacity" values="1;0.3;1" dur="1.4s" repeatCount="indefinite"/>
-                                    </circle>
-                                </svg>
-                                LIVE
-                            </span>
-                        </div>
-                        <div class="hero-order-meta">Acme Corp · Industrial valves · $31,200</div>
-                        <div class="hero-order-timeline">
-                            <div class="hero-tl-row">
-                                <div class="hero-tl-node">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                        <circle cx="7" cy="7" r="7" fill="rgba(255,255,255,0.22)"/>
-                                        <polyline points="3.5,7 6,9.5 10.5,4.5" stroke="rgba(20,20,24,1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span class="hero-tl-label">Quote sent</span>
-                                <span class="hero-tl-time">2d</span>
-                            </div>
-                            <div class="hero-tl-row">
-                                <div class="hero-tl-node">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                        <circle cx="7" cy="7" r="7" fill="rgba(255,255,255,0.22)"/>
-                                        <polyline points="3.5,7 6,9.5 10.5,4.5" stroke="rgba(20,20,24,1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span class="hero-tl-label">Build complete</span>
-                                <span class="hero-tl-time">18h</span>
-                            </div>
-                            <div class="hero-tl-row">
-                                <div class="hero-tl-node">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <circle cx="10" cy="10" r="6" fill="none" stroke="rgba(139,92,246,0.5)" stroke-width="1">
-                                            <animate attributeName="r" values="6;13;6" dur="2.2s" repeatCount="indefinite"/>
-                                            <animate attributeName="opacity" values="0.6;0;0.6" dur="2.2s" repeatCount="indefinite"/>
-                                        </circle>
-                                        <circle cx="10" cy="10" r="7" fill="rgba(139,92,246,1)"/>
-                                        <circle cx="10" cy="10" r="2.5" fill="rgba(255,255,255,1)"/>
-                                    </svg>
-                                </div>
-                                <span class="hero-tl-label hero-tl-label-active">In transit</span>
-                            </div>
-                            <div class="hero-tl-row">
-                                <div class="hero-tl-node">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                        <circle cx="7" cy="7" r="6" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.3"/>
-                                    </svg>
-                                </div>
-                                <span class="hero-tl-label hero-tl-label-pending">Delivery</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <span class="hero-stat-val" data-comment="hero-stat-3-val">Real-time</span>
-            <span class="hero-stat-label" data-comment="hero-stat-3-label">Order visibility from quote to delivery</span>
         </div>
     </div>
 </section>
