@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Industries — Rivne Tech</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111111'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%238B5CF6'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @font-face {
+            font-family: 'VioletSans';
+            src: url('fonts/VioletSans-Regular.woff2') format('woff2'),
+                 url('fonts/VioletSans-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --color-primary:   #111111;
+            --color-secondary: #8B5CF6;
+            --color-accent:    #C5FF00;
+            --color-surface:   #FFFFFF;
+            --color-text:      #FFFFFF;
+            --color-muted:     rgba(255,255,255,0.38);
+            --color-border:    rgba(255,255,255,0.08);
+            --font-display:    'VioletSans', sans-serif;
+            --font-body:       'Roboto', sans-serif;
+            --max-w: 1200px;
+
+            --h1:         clamp(2rem,    4.5vw,  4rem);
+            --h2:         clamp(1.75rem, 3.5vw,  3rem);
+            --h3:         clamp(1.375rem,2.5vw,  2.25rem);
+            --h4:         clamp(1.25rem, 1.8vw,  1.75rem);
+            --h5:         clamp(1.125rem,1.3vw,  1.375rem);
+            --h6:         clamp(1rem,    1.1vw,  1.125rem);
+            --display:    clamp(3.5rem,  9vw,    5rem);
+            --display-xl: clamp(4.5rem,  11vw,   6rem);
+            --lh-heading:       1.0;
+            --lh-heading-tight: 0.95;
+            --ls-heading:       0.03em;
+
+            --body-lg: 1.125rem;
+            --body-md: 1rem;
+            --body-sm: 0.875rem;
+            --lh-body-lg: 1.75;
+            --lh-body-md: 1.65;
+            --lh-body-sm: 1.6;
+
+            --text-label:   0.75rem;
+            --text-button:  1rem;
+            --text-caption: 0.6875rem;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+        header, section, footer { position: relative; z-index: 1; }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            letter-spacing: var(--ls-heading);
+            line-height: var(--lh-heading);
+            color: var(--color-text);
+        }
+        h1 { font-size: var(--h1); }
+        h2 { font-size: var(--h2); }
+        h3 { font-size: var(--h3); }
+        h4 { font-size: var(--h4); }
+        h5 { font-size: var(--h5); }
+        h6 { font-size: var(--h6); }
+
+        .body-lg  { font-size: var(--body-lg);  line-height: var(--lh-body-lg); }
+        .body-md  { font-size: var(--body-md);  line-height: var(--lh-body-md); }
+        .body-sm  { font-size: var(--body-sm);  line-height: var(--lh-body-sm); }
+        .text-label   { font-size: var(--text-label);   text-transform: uppercase; letter-spacing: .08em; }
+        .text-caption { font-size: var(--text-caption); }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-primary);
+            color: var(--color-text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image: linear-gradient(
+                90deg,
+                transparent 0,
+                transparent 19px,
+                rgba(255,255,255,.06) 19px,
+                rgba(255,255,255,.06) 20px,
+                transparent 20px
+            );
+            background-size: 39px 100%;
+            background-position: center top;
+            mask-image: linear-gradient(90deg, black 0%, transparent 30%, transparent 70%, black 100%);
+            -webkit-mask-image: linear-gradient(90deg, black 0%, transparent 30%, transparent 70%, black 100%);
+        }
+
+        .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 56px; }
+
+        .fu { opacity: 0; transform: translateY(16px); will-change: transform, opacity; transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+        .fu.in { opacity: 1; transform: none; }
+
+        [data-comment="header"] {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 24px 56px; display: flex; align-items: center; justify-content: space-between;
+            transition: background .4s, border-color .4s; border-bottom: 1px solid transparent;
+        }
+        [data-comment="header"].scrolled {
+            background: rgba(17,17,17,.92); backdrop-filter: blur(14px); border-color: var(--color-border);
+        }
+        [data-comment="header-logo"] {
+            font-family: var(--font-display); font-weight: 800; font-size: 16px;
+            color: #fff; text-decoration: none; letter-spacing: .04em;
+        }
+        [data-comment="header-nav"] { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+        .nav-link { font-size: 13px; color: var(--color-muted); text-decoration: none; transition: color .2s; }
+        .nav-link:hover, .nav-link.active { color: #fff; }
+
+
+        /* BUTTON SYSTEM */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            font-family: var(--font-body); font-weight: 500; text-decoration: none;
+            cursor: pointer; border: none; white-space: nowrap; line-height: 1;
+            position: relative; overflow: hidden;
+            transition: border-color .25s, transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;
+        }
+        .btn:not(.btn-link):hover {
+            transform: scale(1.06);
+            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.22);
+        }
+        .btn-sm { font-size: 13px; padding: 9px 20px; }
+        .btn-md { font-size: 15px; padding: 12px 26px; }
+        .btn-lg { font-size: 16px; padding: 17px 36px; }
+        .btn-primary {
+            background: #fff; color: var(--color-primary);
+            border-radius: 100px; font-weight: 500;
+            --btn-glow: rgba(139,92,246,.2);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,.06); color: #fff;
+            border-radius: 100px; font-weight: 500;
+            border: 1px solid rgba(255,255,255,.14);
+            --btn-glow: rgba(255,255,255,.14);
+        }
+        .btn-secondary:hover { border-color: rgba(255,255,255,.28); }
+        .btn-link {
+            color: var(--color-muted); background: none; overflow: visible;
+            padding: 0; font-weight: 400;
+            --btn-glow: transparent;
+        }
+        .btn-link:hover { color: #fff; }
+        .btn-link.btn-sm { font-size: 12px; padding: 0; }
+        .btn-link.btn-md { font-size: 13px; padding: 0; }
+        .btn-link.btn-lg { font-size: 15px; padding: 0; }
+        @media (max-width: 768px) {
+            .btn-lg { font-size: 15px; padding: 12px 26px; }
+            .btn-link.btn-lg { font-size: 13px; padding: 0; }
+        }
+
+        /* TAG */
+        .tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(139,92,246,.25); padding: 6px 14px; border-radius: 100px;
+            font-family: var(--font-body); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--color-secondary); background: rgba(139,92,246,.07);
+            position: relative; overflow: hidden; cursor: default;
+        }
+        .tag::after {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            border-radius: inherit; transition: opacity .3s ease; opacity: 0;
+            background: radial-gradient(circle 40px at var(--mx,50%) var(--my,50%), rgba(139,92,246,.3) 0%, transparent 100%);
+        }
+        .tag:hover::after { opacity: 1; }
+        .tag svg { width: 14px; height: 14px; stroke-width: 1.5; flex-shrink: 0; color: var(--color-secondary); }
+
+        /* HERO */
+        .sol-hero {
+            padding: 200px 56px 120px;
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .sol-hero-tag { margin-bottom: 48px; }
+        .sol-hero-h1 {
+            font-size: var(--display);
+            line-height: var(--lh-heading-tight);
+            max-width: 1000px;
+            margin-bottom: 28px;
+        }
+        .sol-hero-sub {
+            font-size: var(--body-lg); font-weight: 300; line-height: var(--lh-body-lg);
+            color: var(--color-muted);
+            max-width: 520px;
+        }
+
+        /* MODULE GRID */
+        .sol-modules {
+            padding: 80px 0 160px;
+        }
+        .sol-modules-wrap {
+            max-width: var(--max-w); margin: 0 auto; padding: 0 56px;
+        }
+        .sol-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: var(--color-border);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .sol-card {
+            background: var(--color-primary);
+            padding: 48px 44px;
+            display: flex; flex-direction: row; gap: 56px; align-items: flex-start;
+            transition: background .2s;
+            position: relative;
+        }
+        .sol-card-left { flex: 0 0 280px; display: flex; flex-direction: column; }
+        .sol-card-right { flex: 1; display: flex; gap: 40px; }
+        .sol-card-right > div { flex: 1; }
+        .sol-card-right .ind-section-label:first-child { margin-top: 0; }
+        .sol-card:hover { background: #151515; }
+
+        .sol-card-cat {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-size: 11px; letter-spacing: .10em; text-transform: uppercase;
+            color: var(--color-secondary);
+            background: rgba(139,92,246,.08);
+            border: 1px solid rgba(139,92,246,.22);
+            padding: 4px 12px; border-radius: 100px;
+            margin-bottom: 28px;
+            align-self: flex-start;
+        }
+        .sol-card-cat svg { width: 12px; height: 12px; stroke-width: 1.5; }
+        .sol-card-title {
+            font-family: var(--font-display);
+            font-size: var(--h4);
+            font-weight: 400;
+            letter-spacing: var(--ls-heading);
+            line-height: var(--lh-heading);
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .sol-card-pain {
+            font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm);
+            color: var(--color-muted);
+            margin-bottom: 24px;
+        }
+        .sol-card-features {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 10px;
+            margin-bottom: 0;
+        }
+        .sol-card-features li {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm);
+            color: rgba(255,255,255,.75);
+        }
+        .sol-card-features li::before {
+            content: '';
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(139,92,246,.7);
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        /* Industry card section labels */
+        .ind-section-label {
+            font-size: 11px; letter-spacing: .10em; text-transform: uppercase;
+            color: var(--color-muted);
+            margin: 24px 0 12px;
+            display: block;
+        }
+        .ind-section-label.ind-systems-label {
+            color: rgba(197,255,0,.6);
+        }
+        .sol-card-features.ind-systems li::before {
+            background: rgba(197,255,0,.55);
+        }
+
+        /* CTA */
+        [data-comment="cta-section"] {
+            min-height: 80vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 140px 56px;
+        }
+        [data-comment="cta-inner"] { display: flex; flex-direction: column; align-items: center; }
+        [data-comment="cta-label"] { margin-bottom: 48px; }
+        [data-comment="cta-headline"] {
+            font-size: var(--display); line-height: var(--lh-heading); max-width: 900px; margin-bottom: 16px;
+        }
+        [data-comment="cta-headline-accent"] { color: var(--color-secondary); }
+        [data-comment="cta-micro"] { display: block; font-size: 16px; font-weight: 300; color: var(--color-muted); margin-bottom: 36px; }
+        .cta-btns { display: flex; align-items: center; gap: 16px; }
+
+        /* FOOTER */
+        [data-comment="footer"] {
+            padding: 96px 56px 40px;
+            border-top: 1px solid var(--color-border);
+            background: var(--color-primary);
+        }
+        [data-comment="footer-inner"] { max-width: var(--max-w); margin: 0 auto; }
+        [data-comment="footer-top"] {
+            display: grid; grid-template-columns: 1.4fr 1fr;
+            gap: 64px; padding-bottom: 72px;
+        }
+        [data-comment="footer-brand"] { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+        [data-comment="footer-brand-logo"] { font-family: var(--font-display); font-size: var(--h4); color: #fff; text-decoration: none; letter-spacing: .02em; }
+        [data-comment="footer-brand-tagline"] { font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md); color: var(--color-muted); max-width: 360px; }
+        [data-comment="footer-email"] { font-size: var(--body-md); color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; transition: border-color .2s, color .2s; }
+        [data-comment="footer-email"]:hover { border-color: var(--color-secondary); color: var(--color-secondary); }
+        [data-comment="footer-cols"] { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .footer-col-title { font-family: var(--font-body); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 20px; display: block; }
+        .footer-col-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-link { font-size: var(--body-md); color: #fff; text-decoration: none; transition: color .2s; }
+        .footer-link:hover { color: var(--color-secondary); }
+        [data-comment="footer-wordmark"] {
+            font-family: var(--font-display); font-size: var(--display-xl);
+            line-height: .85; letter-spacing: -.02em; color: #fff;
+            padding: 40px 0 32px; text-align: left; word-break: normal;
+        }
+        [data-comment="footer-bottom"] {
+            border-top: 1px solid var(--color-border);
+            padding-top: 28px; display: flex; justify-content: space-between; align-items: center;
+            font-size: var(--body-sm); color: var(--color-muted);
+        }
+
+        /* MODAL */
+        [data-comment="cu-overlay"] {
+            position: fixed; inset: 0; z-index: 200;
+            background: rgba(8,8,10,.76);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px; opacity: 0; visibility: hidden;
+            transition: opacity .3s ease, visibility .3s ease;
+        }
+        [data-comment="cu-overlay"].is-open { opacity: 1; visibility: visible; }
+        [data-comment="cu-modal"] {
+            background: rgba(20,20,22,0.96);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 16px; width: 100%; max-width: 480px;
+            padding: 40px; position: relative;
+            transform: translateY(12px) scale(0.98);
+            transition: transform .35s cubic-bezier(.16,1,.3,1);
+            max-height: calc(100vh - 48px); overflow-y: auto;
+        }
+        [data-comment="cu-overlay"].is-open [data-comment="cu-modal"] { transform: none; }
+        [data-comment="cu-close"] {
+            position: absolute; top: 16px; right: 16px;
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+            color: var(--color-muted); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: color .2s, border-color .2s, background .2s;
+        }
+        [data-comment="cu-close"]:hover { color: #fff; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.06); }
+        [data-comment="cu-close"] svg { width: 16px; height: 16px; stroke-width: 1.8; }
+        [data-comment="cu-heading"] {
+            font-family: var(--font-display); font-size: var(--h3);
+            font-weight: 200; letter-spacing: var(--ls-heading);
+            line-height: var(--lh-heading-tight); margin-bottom: 10px; color: #fff;
+        }
+        [data-comment="cu-sub"] {
+            font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm);
+            color: var(--color-muted); margin-bottom: 28px;
+        }
+        [data-comment="cu-form"] { display: flex; flex-direction: column; gap: 16px; }
+        .cu-field { display: flex; flex-direction: column; gap: 6px; }
+        .cu-label {
+            font-family: var(--font-body); font-size: 11px; font-weight: 500;
+            letter-spacing: .08em; text-transform: uppercase; color: var(--color-muted);
+        }
+        .cu-required::after { content: ' *'; color: #ef4444; margin-left: 2px; }
+        .cu-input, .cu-textarea {
+            width: 100%; padding: 12px 14px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 8px; color: #fff;
+            font-family: var(--font-body); font-size: 14px;
+            transition: border-color .2s, background .2s;
+        }
+        .cu-input:focus, .cu-textarea:focus {
+            outline: none; border-color: rgba(139,92,246,.55);
+            background: rgba(255,255,255,.05);
+        }
+        .cu-input::placeholder, .cu-textarea::placeholder { color: rgba(255,255,255,.25); }
+        .cu-textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+        [data-comment="cu-submit"] { margin-top: 8px; width: 100%; }
+        [data-comment="cu-success"] { display: none; text-align: center; padding: 12px 0; }
+        [data-comment="cu-overlay"].is-success [data-comment="cu-form"] { display: none; }
+        [data-comment="cu-overlay"].is-success [data-comment="cu-sub"] { display: none; }
+        [data-comment="cu-overlay"].is-success [data-comment="cu-success"] { display: block; }
+        .cu-success-icon {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: rgba(197,255,0,.14); border: 1px solid rgba(197,255,0,.55);
+            display: inline-flex; align-items: center; justify-content: center;
+            color: var(--color-accent); margin-bottom: 20px;
+        }
+        .cu-success-icon svg { width: 24px; height: 24px; stroke-width: 2; }
+        [data-comment="cu-success-heading"] {
+            font-family: var(--font-display); font-size: var(--h4);
+            font-weight: 300; letter-spacing: var(--ls-heading);
+            margin-bottom: 8px; color: #fff;
+        }
+        [data-comment="cu-success-sub"] {
+            font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm);
+            color: var(--color-muted);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            [data-comment="header"] { padding: 20px 24px; }
+            .sol-hero { padding: 140px 24px 80px; }
+            .sol-modules-wrap { padding: 0 24px; }
+            .sol-card { padding: 36px 28px; flex-direction: column; gap: 0; }
+            .sol-card-right { flex-direction: column; gap: 0; }
+            [data-comment="cta-section"] { padding: 100px 24px; }
+            [data-comment="footer"] { padding: 72px 24px 32px; }
+            [data-comment="footer-top"] { grid-template-columns: 1fr; gap: 40px; }
+            .cta-btns { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<header data-comment="header">
+    <a href="index.html" data-comment="header-logo">Rivne Tech</a>
+    <nav>
+        <ul data-comment="header-nav">
+            <li><a href="solutions.html" class="nav-link" data-comment="header-nav-solutions">Solutions</a></li>
+            <li><a href="industries.html" class="nav-link active" aria-current="page" data-comment="header-nav-industries">Industries</a></li>
+            <li><a href="how-we-work.html" class="nav-link" data-comment="header-nav-process">How we work</a></li>
+        </ul>
+    </nav>
+    <a href="#" data-cu-open data-comment="header-cta" class="btn btn-primary btn-sm">Let's Talk</a>
+</header>
+
+<!-- HERO -->
+<section class="sol-hero">
+    <span class="fu tag sol-hero-tag"><i data-lucide="factory"></i>Industries</span>
+    <h1 class="fu sol-hero-h1">Built for operational businesses<br><span style="color:var(--color-secondary)">running on ERP</span></h1>
+    <p class="fu sol-hero-sub">We build tools for manufacturers, distributors, and field operations that outgrow what their ERP shows out of the box.</p>
+</section>
+
+<!-- INDUSTRY CARDS -->
+<section class="sol-modules">
+    <div class="sol-modules-wrap">
+        <div class="sol-grid">
+
+            <!-- Manufacturing -->
+            <div class="sol-card">
+                <div class="sol-card-left">
+                    <span class="sol-card-cat"><i data-lucide="cog"></i>Manufacturing</span>
+                    <h3 class="sol-card-title">Manufacturing</h3>
+                    <p class="sol-card-pain">Production runs on the floor — but the office is always a step behind, chasing status and reacting to surprises.</p>
+                </div>
+                <div class="sol-card-right">
+                    <div>
+                        <span class="ind-section-label">Challenges</span>
+                        <ul class="sol-card-features">
+                            <li>Production status invisible to office and management</li>
+                            <li>Supplier delays surface too late to reroute or reschedule</li>
+                            <li>QC results disconnected from job records</li>
+                            <li>Scheduling still lives in spreadsheets or whiteboards</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="ind-section-label ind-systems-label">Typically built</span>
+                        <ul class="sol-card-features ind-systems">
+                            <li>Production scheduling board with capacity view</li>
+                            <li>Shop-floor status tracker linked to ERP orders</li>
+                            <li>Vendor &amp; component arrival tracking</li>
+                            <li>Quality inspection log per job and product</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distribution -->
+            <div class="sol-card">
+                <div class="sol-card-left">
+                    <span class="sol-card-cat"><i data-lucide="package"></i>Distribution</span>
+                    <h3 class="sol-card-title">Distribution</h3>
+                    <p class="sol-card-pain">Orders move through too many systems — by the time something goes wrong, it's already a customer problem.</p>
+                </div>
+                <div class="sol-card-right">
+                    <div>
+                        <span class="ind-section-label">Challenges</span>
+                        <ul class="sol-card-features">
+                            <li>Order status spread across warehouse, ERP, and email</li>
+                            <li>Shipping exceptions caught late with no structured response</li>
+                            <li>No real-time inventory signal across locations</li>
+                            <li>Pick and pack errors invisible until a complaint arrives</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="ind-section-label ind-systems-label">Typically built</span>
+                        <ul class="sol-card-features ind-systems">
+                            <li>Order visibility dashboard from receipt to shipment</li>
+                            <li>Exception &amp; on-hold workflows with owner assignment</li>
+                            <li>Dispatch coordination and route-readiness checks</li>
+                            <li>Customer-facing order status portal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Field Service / Install -->
+            <div class="sol-card">
+                <div class="sol-card-left">
+                    <span class="sol-card-cat"><i data-lucide="wrench"></i>Field Service / Install</span>
+                    <h3 class="sol-card-title">Field Service &amp; Install</h3>
+                    <p class="sol-card-pain">The office and field crews work from different lists — gaps between them create missed jobs and late completions.</p>
+                </div>
+                <div class="sol-card-right">
+                    <div>
+                        <span class="ind-section-label">Challenges</span>
+                        <ul class="sol-card-features">
+                            <li>Office and field operate from separate schedules</li>
+                            <li>Job status not updated until techs are back in the office</li>
+                            <li>Install completion unconfirmed for days after the visit</li>
+                            <li>Techs have no mobile access to job details or history</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="ind-section-label ind-systems-label">Typically built</span>
+                        <ul class="sol-card-features ind-systems">
+                            <li>Dispatch calendar with crew and vehicle assignments</li>
+                            <li>Mobile job-completion forms with photo or signature</li>
+                            <li>Site-readiness checklists before dispatch</li>
+                            <li>Customer approval portal for sign-off and revisions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Shops / Custom Fabrication -->
+            <div class="sol-card">
+                <div class="sol-card-left">
+                    <span class="sol-card-cat"><i data-lucide="scissors"></i>Job Shops</span>
+                    <h3 class="sol-card-title">Job Shops &amp; Custom Fabrication</h3>
+                    <p class="sol-card-pain">Every job is different — which makes standard ERP tracking a poor fit and custom visibility nearly impossible.</p>
+                </div>
+                <div class="sol-card-right">
+                    <div>
+                        <span class="ind-section-label">Challenges</span>
+                        <ul class="sol-card-features">
+                            <li>Unique jobs make standardised tracking hard to maintain</li>
+                            <li>Customer approvals stall production with no audit trail</li>
+                            <li>Material traceability across custom runs is manual</li>
+                            <li>Quote-to-delivery visibility gaps leave reps guessing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span class="ind-section-label ind-systems-label">Typically built</span>
+                        <ul class="sol-card-features ind-systems">
+                            <li>Custom job tracker from quote through delivery</li>
+                            <li>Customer approval &amp; revision portal with version history</li>
+                            <li>Vendor &amp; component tracking per job</li>
+                            <li>Shop-floor status board linked to live job list</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section data-comment="cta-section" id="cta">
+    <div data-comment="cta-inner">
+        <span class="fu tag" data-comment="cta-label"><i data-lucide="message-circle"></i>Let's Talk</span>
+        <h1 data-comment="cta-headline" class="fu">
+            Not the right vertical?<br>
+            <span data-comment="cta-headline-accent">We work across most ERP-connected operations</span>
+        </h1>
+        <span data-comment="cta-micro" class="fu">If it runs on data and a team of people, we can probably help.</span>
+        <div class="fu cta-btns">
+            <a href="#" data-cu-open class="btn btn-primary btn-lg">Let's Talk</a>
+            <a href="solutions.html" class="btn btn-secondary btn-lg">See what we build →</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-comment="footer">
+    <div data-comment="footer-inner">
+        <div data-comment="footer-top">
+            <div data-comment="footer-brand">
+                <a href="index.html" data-comment="footer-brand-logo">Rivne Tech</a>
+                <p data-comment="footer-brand-tagline">Custom ERP-connected systems for operations that outgrew spreadsheets.</p>
+                <a href="mailto:hello@rivnetech.com" data-comment="footer-email">hello@rivnetech.com</a>
+            </div>
+            <div data-comment="footer-cols">
+                <div data-comment="footer-col-navigate">
+                    <span class="footer-col-title">Navigate</span>
+                    <ul class="footer-col-list">
+                        <li><a href="solutions.html" class="footer-link">Solutions</a></li>
+                        <li><a href="industries.html" class="footer-link">Industries</a></li>
+                        <li><a href="index.html#process" class="footer-link">How we work</a></li>
+                    </ul>
+                </div>
+                <div data-comment="footer-col-connect">
+                    <span class="footer-col-title">Connect</span>
+                    <ul class="footer-col-list">
+                        <li><a href="#" data-cu-open class="footer-link">Contact us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-comment="footer-wordmark">Rivne Tech</div>
+        <div data-comment="footer-bottom">
+            <span>© 2026 Rivne Tech. All rights reserved.</span>
+            <span>Built in Ukraine.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- CONTACT MODAL -->
+<div data-comment="cu-overlay" aria-hidden="true">
+    <div data-comment="cu-modal" role="dialog" aria-labelledby="cu-heading" aria-modal="true">
+        <button type="button" data-comment="cu-close" aria-label="Close"><i data-lucide="x"></i></button>
+        <h3 data-comment="cu-heading" id="cu-heading">Contact us</h3>
+        <p data-comment="cu-sub">Leave a message and we'll get back to you within a day.</p>
+        <form data-comment="cu-form">
+            <div class="cu-field">
+                <label class="cu-label cu-required" for="cu-input-name">Name</label>
+                <input type="text" id="cu-input-name" class="cu-input" placeholder="Your name" required />
+            </div>
+            <div class="cu-field">
+                <label class="cu-label cu-required" for="cu-input-email">Email</label>
+                <input type="email" id="cu-input-email" class="cu-input" placeholder="you@company.com" required />
+            </div>
+            <div class="cu-field">
+                <label class="cu-label" for="cu-input-company">Company</label>
+                <input type="text" id="cu-input-company" class="cu-input" placeholder="Optional" />
+            </div>
+            <div class="cu-field">
+                <label class="cu-label cu-required" for="cu-input-message">Message</label>
+                <textarea id="cu-input-message" class="cu-textarea" placeholder="Tell us about your operations…" required></textarea>
+            </div>
+            <button type="submit" data-comment="cu-submit" class="btn btn-primary btn-lg">Send message</button>
+        </form>
+        <div data-comment="cu-success">
+            <div class="cu-success-icon"><i data-lucide="check"></i></div>
+            <h3 data-comment="cu-success-heading">Thanks — we'll be in touch</h3>
+            <p data-comment="cu-success-sub">Your message is on its way. We usually reply within a day.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+
+    // Contact Us modal
+    (function() {
+        const overlay = document.querySelector('[data-comment="cu-overlay"]');
+        if (!overlay) return;
+        const form = overlay.querySelector('[data-comment="cu-form"]');
+        const closeBtn = overlay.querySelector('[data-comment="cu-close"]');
+        const openers = document.querySelectorAll('[data-cu-open]');
+
+        function open(e) {
+            if (e) e.preventDefault();
+            overlay.classList.add('is-open');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => overlay.querySelector('.cu-input')?.focus(), 250);
+        }
+        function close() {
+            overlay.classList.remove('is-open');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                overlay.classList.remove('is-success');
+                form.reset();
+            }, 300);
+        }
+
+        openers.forEach(el => el.addEventListener('click', open));
+        closeBtn.addEventListener('click', close);
+        overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+        });
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            overlay.classList.add('is-success');
+        });
+    })();
+
+    // Cursor glow for .tag and .btn
+    document.querySelectorAll('.tag, .btn').forEach(el => {
+        el.addEventListener('mousemove', e => {
+            const r = el.getBoundingClientRect();
+            el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+            el.style.setProperty('--my', `${e.clientY - r.top}px`);
+        });
+    });
+
+    // Fade-up animations
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const root = e.target.closest('section, footer');
+            const group = root ? [...root.querySelectorAll('.fu')] : [e.target];
+            const i = group.indexOf(e.target);
+            setTimeout(() => e.target.classList.add('in'), i * 55);
+            io.unobserve(e.target);
+        });
+    }, { threshold: .1 });
+    document.querySelectorAll('.fu').forEach(el => io.observe(el));
+</script>
+<script>
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('[data-comment="header"]');
+        if (header) header.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+</script>
+</body>
+</html>

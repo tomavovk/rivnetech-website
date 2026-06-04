@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How We Work — Rivne Tech</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111111'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%238B5CF6'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @font-face {
+            font-family: 'VioletSans';
+            src: url('fonts/VioletSans-Regular.woff2') format('woff2'),
+                 url('fonts/VioletSans-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --color-primary:   #111111;
+            --color-secondary: #8B5CF6;
+            --color-accent:    #C5FF00;
+            --color-surface:   #FFFFFF;
+            --color-text:      #FFFFFF;
+            --color-muted:     rgba(255,255,255,0.38);
+            --color-border:    rgba(255,255,255,0.08);
+            --font-display:    'VioletSans', sans-serif;
+            --font-body:       'Roboto', sans-serif;
+            --max-w: 1200px;
+
+            --h1:         clamp(2rem,    4.5vw,  4rem);
+            --h2:         clamp(1.75rem, 3.5vw,  3rem);
+            --h3:         clamp(1.375rem,2.5vw,  2.25rem);
+            --h4:         clamp(1.25rem, 1.8vw,  1.75rem);
+            --h5:         clamp(1.125rem,1.3vw,  1.375rem);
+            --h6:         clamp(1rem,    1.1vw,  1.125rem);
+            --display:    clamp(3.5rem,  9vw,    5rem);
+            --display-xl: clamp(4.5rem,  11vw,   6rem);
+            --lh-heading:       1.0;
+            --lh-heading-tight: 0.95;
+            --lh-heading-large: 1.2;
+            --ls-heading:       0.03em;
+
+            --body-lg: 1.125rem;
+            --body-md: 1rem;
+            --body-sm: 0.875rem;
+            --lh-body-lg: 1.75;
+            --lh-body-md: 1.65;
+            --lh-body-sm: 1.6;
+
+            --text-label:   0.75rem;
+            --text-button:  1rem;
+            --text-caption: 0.6875rem;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+        header, section, footer { position: relative; z-index: 1; }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            letter-spacing: var(--ls-heading);
+            line-height: var(--lh-heading);
+            color: var(--color-text);
+        }
+        h1 { font-size: var(--h1); line-height: var(--lh-heading-large); }
+        h2 { font-size: var(--h2); line-height: var(--lh-heading-large); }
+        h3 { font-size: var(--h3); }
+        h4 { font-size: var(--h4); }
+        h5 { font-size: var(--h5); }
+        h6 { font-size: var(--h6); }
+
+        .body-lg  { font-size: var(--body-lg);  line-height: var(--lh-body-lg); }
+        .body-md  { font-size: var(--body-md);  line-height: var(--lh-body-md); }
+        .body-sm  { font-size: var(--body-sm);  line-height: var(--lh-body-sm); }
+        .text-label   { font-size: var(--text-label);   text-transform: uppercase; letter-spacing: .08em; }
+        .text-caption { font-size: var(--text-caption); }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-primary);
+            color: var(--color-text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image: linear-gradient(
+                90deg,
+                transparent 0,
+                transparent 19px,
+                rgba(255,255,255,.06) 19px,
+                rgba(255,255,255,.06) 20px,
+                transparent 20px
+            );
+            background-size: 39px 100%;
+            background-position: center top;
+            mask-image: linear-gradient(90deg, black 0%, transparent 30%, transparent 70%, black 100%);
+            -webkit-mask-image: linear-gradient(90deg, black 0%, transparent 30%, transparent 70%, black 100%);
+        }
+
+        .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 56px; }
+
+        .fu { opacity: 0; transform: translateY(16px); will-change: transform, opacity; transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+        .fu.in { opacity: 1; transform: none; }
+
+        [data-comment="header"] {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 24px 56px; display: flex; align-items: center; justify-content: space-between;
+            transition: background .4s, border-color .4s; border-bottom: 1px solid transparent;
+        }
+        [data-comment="header"].scrolled {
+            background: rgba(17,17,17,.92); backdrop-filter: blur(14px); border-color: var(--color-border);
+        }
+        [data-comment="header-logo"] {
+            font-family: var(--font-display); font-weight: 800; font-size: 16px;
+            color: #fff; text-decoration: none; letter-spacing: .04em;
+        }
+        [data-comment="header-nav"] { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+        .nav-link { font-size: 13px; color: var(--color-muted); text-decoration: none; transition: color .2s; }
+        .nav-link:hover, .nav-link.active { color: #fff; }
+
+        /* BUTTON SYSTEM */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            font-family: var(--font-body); font-weight: 500; text-decoration: none;
+            cursor: pointer; border: none; white-space: nowrap; line-height: 1;
+            position: relative; overflow: hidden;
+            transition: border-color .25s, transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;
+        }
+        .btn:not(.btn-link):hover {
+            transform: scale(1.06);
+            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.22);
+        }
+        .btn-sm { font-size: 13px; padding: 9px 20px; }
+        .btn-md { font-size: 15px; padding: 12px 26px; }
+        .btn-lg { font-size: 16px; padding: 17px 36px; }
+        .btn-primary {
+            background: #fff; color: var(--color-primary);
+            border-radius: 100px; font-weight: 500;
+            --btn-glow: rgba(139,92,246,.2);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,.06); color: #fff;
+            border-radius: 100px; font-weight: 500;
+            border: 1px solid rgba(255,255,255,.14);
+            --btn-glow: rgba(255,255,255,.14);
+        }
+        .btn-secondary:hover { border-color: rgba(255,255,255,.28); }
+        .btn-link {
+            color: var(--color-muted); background: none; overflow: visible;
+            padding: 0; font-weight: 400;
+            --btn-glow: transparent;
+        }
+        .btn-link:hover { color: #fff; }
+        @media (max-width: 768px) {
+            .btn-lg { font-size: 15px; padding: 12px 26px; }
+        }
+
+        /* TAG */
+        .tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(139,92,246,.25); padding: 6px 14px; border-radius: 100px;
+            font-family: var(--font-body); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--color-secondary); background: rgba(139,92,246,.07);
+            position: relative; overflow: hidden; cursor: default;
+        }
+        .tag::after {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            border-radius: inherit; transition: opacity .3s ease; opacity: 0;
+            background: radial-gradient(circle 40px at var(--mx,50%) var(--my,50%), rgba(139,92,246,.3) 0%, transparent 100%);
+        }
+        .tag:hover::after { opacity: 1; }
+        .tag svg { width: 14px; height: 14px; stroke-width: 1.5; flex-shrink: 0; color: var(--color-secondary); }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 200px 56px 120px;
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .page-hero-tag { margin-bottom: 48px; }
+        .page-hero-h1 {
+            font-size: var(--display);
+            line-height: var(--lh-heading-tight);
+            max-width: 1000px;
+            margin-bottom: 28px;
+        }
+        .page-hero-sub {
+            font-size: var(--body-lg); font-weight: 300; line-height: var(--lh-body-lg);
+            color: var(--color-muted);
+            max-width: 560px;
+            margin-bottom: 40px;
+        }
+
+        /* PROCESS SECTION */
+        [data-comment="process-section"] { padding: 140px 0; }
+        [data-comment="process-label"] { margin-bottom: 64px; display: block; width: fit-content; margin-left: auto; margin-right: auto; }
+        [data-comment="process-headline"] { margin-bottom: 20px; max-width: 720px; text-align: center; margin-left: auto; margin-right: auto; }
+        .process-desc { font-size: var(--body-lg); font-weight: 300; line-height: var(--lh-body-lg); color: var(--color-muted); max-width: 560px; margin-bottom: 88px; text-align: center; margin-left: auto; margin-right: auto; }
+        [data-comment="process-grid"] {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+            background: var(--color-border);
+            border: 1px solid var(--color-border); border-radius: 16px;
+            overflow: hidden;
+        }
+        .step-card {
+            background: var(--color-primary);
+            padding: 36px 40px 40px;
+            display: flex; flex-direction: column;
+            min-height: 560px;
+        }
+        .step-card-fig {
+            font-family: var(--font-body); font-size: 11px; font-weight: 500;
+            letter-spacing: .14em; text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 24px;
+        }
+        .step-card-visual {
+            flex: none;
+            height: 340px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 40px;
+        }
+        .step-card-visual-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .step-card-title {
+            font-family: var(--font-display); font-size: var(--h5); font-weight: 600;
+            letter-spacing: var(--ls-heading); color: #fff; margin-bottom: 12px;
+        }
+        .step-card-desc {
+            font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm);
+            color: var(--color-muted); max-width: 460px;
+        }
+
+        /* Step card animations */
+        .step-card .animate-in { opacity: 0; transform: translateY(6px); }
+        .step-card.in-view .animate-in {
+            animation: stepReveal .5s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        @keyframes stepReveal { to { opacity: 1; transform: none; } }
+
+        /* Step 01 — doc card + research files */
+        .discovery-visual {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 14px;
+            width: 100%; max-width: 360px;
+        }
+        .doc-files {
+            display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+            width: 100%;
+        }
+        .doc-file {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 9px;
+            font-family: var(--font-body);
+            font-size: 10px; color: rgba(255,255,255,0.65);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0; transform: translateY(4px);
+        }
+        .doc-file svg {
+            width: 11px; height: 11px;
+            color: rgba(255,255,255,0.42);
+            stroke-width: 1.5;
+            flex-shrink: 0;
+        }
+        .doc-file:nth-child(1) svg { color: var(--color-accent); }
+        .step-card.in-view .doc-file { animation: docFileIn .35s cubic-bezier(.16,1,.3,1) forwards; }
+        .step-card.in-view .doc-file:nth-child(1) { animation-delay: .4s; }
+        .step-card.in-view .doc-file:nth-child(2) { animation-delay: .58s; }
+        .step-card.in-view .doc-file:nth-child(3) { animation-delay: .76s; }
+        @keyframes docFileIn { to { opacity: 1; transform: none; } }
+        .doc-card {
+            width: 100%; max-width: 340px;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+        .doc-card-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-bottom: 14px; margin-bottom: 14px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .doc-card-title {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 10.5px; letter-spacing: .04em;
+            color: rgba(255,255,255,0.65);
+        }
+        .doc-card-tag {
+            font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+            color: var(--color-secondary);
+            background: rgba(139,92,246,0.08);
+            padding: 3px 8px; border-radius: 999px;
+        }
+        .doc-list { display: flex; flex-direction: column; gap: 11px; margin: 0; }
+        .doc-row { display: grid; grid-template-columns: 82px 1fr; gap: 14px; align-items: baseline; margin: 0; }
+        .doc-row dt, .doc-row dd { margin: 0; }
+        .doc-row dt {
+            font-size: 10.5px; color: rgba(255,255,255,0.35);
+            text-transform: uppercase; letter-spacing: .08em;
+        }
+        .doc-row dd { font-size: 12.5px; color: rgba(255,255,255,0.85); }
+
+        /* Step 02 — wireframe + comment */
+        .wf-container { position: relative; width: 100%; max-width: 380px; padding: 0 0 16px; display: flex; flex-direction: column; }
+        .wf-tag {
+            align-self: flex-start; margin-bottom: 10px;
+            font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            background: rgba(255,255,255,0.05);
+            padding: 3px 8px; border-radius: 999px;
+        }
+        .wf-app {
+            position: relative; background: #171717;
+            border: 1px solid rgba(255,255,255,0.09); border-radius: 10px;
+            overflow: hidden; box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+        }
+        .wf-app-head {
+            display: flex; align-items: center; gap: 8px;
+            padding: 12px 14px 11px; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .wf-app-title { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: #fff; letter-spacing: .01em; }
+        .wf-app-count {
+            font-size: 10px; color: rgba(255,255,255,0.45);
+            padding: 1px 6px; background: rgba(255,255,255,0.05); border-radius: 4px;
+        }
+        .wf-app-toolbar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; }
+        .wf-chip {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 10.5px; color: rgba(255,255,255,0.72);
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px; padding: 4px 10px; white-space: nowrap;
+        }
+        .wf-chip-caret { opacity: .4; font-size: 8px; }
+        .wf-chip-target {
+            position: relative; color: #b5a1f5;
+            background: rgba(139,92,246,0.06); border: 1px dashed rgba(139,92,246,0.5);
+        }
+        .wf-chip-target::after {
+            content: ''; position: absolute; top: -3px; right: -3px;
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--color-secondary); box-shadow: 0 0 0 2px var(--color-primary);
+        }
+        .wf-app-table { border-top: 1px solid rgba(255,255,255,0.05); }
+        .wf-table-row {
+            display: grid; grid-template-columns: 56px 1fr auto;
+            align-items: center; gap: 10px; padding: 9px 14px; font-size: 10.5px;
+        }
+        .wf-table-row + .wf-table-row { border-top: 1px solid rgba(255,255,255,0.04); }
+        .wf-table-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: rgba(255,255,255,0.5); }
+        .wf-table-name { color: rgba(255,255,255,0.85); }
+        .wf-table-status {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 10px; color: rgba(255,255,255,0.72);
+        }
+        .wf-table-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .wf-status-packed::before { background: #fbbf24; }
+        .wf-status-shipped::before { background: #10b981; }
+        .wf-comment {
+            position: absolute; bottom: -24px; right: -18px;
+            display: flex; align-items: flex-start; gap: 10px;
+            background: #181818; border: 1px solid rgba(139,92,246,0.4);
+            border-radius: 10px; padding: 10px 12px; max-width: 200px;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.5);
+        }
+        .wf-comment-avatar {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1);
+            color: #fff; font-size: 9.5px; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .wf-comment-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+        .wf-comment-name { font-size: 10px; color: rgba(255,255,255,0.5); }
+        .wf-comment-text { font-size: 11.5px; color: rgba(255,255,255,0.88); line-height: 1.4; margin: 0; }
+
+        /* Step 03 — code + app */
+        .build-visual { display: flex; flex-direction: column; align-items: stretch; gap: 10px; width: 100%; max-width: 440px; }
+        .build-code {
+            background: #141414; border: 1px solid var(--color-border);
+            border-radius: 9px; overflow: hidden; align-self: center; width: 260px;
+        }
+        .build-code-head { padding: 6px 10px; border-bottom: 1px solid var(--color-border); background: rgba(255,255,255,0.02); }
+        .build-code-tab { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; color: rgba(255,255,255,0.5); }
+        .build-code-body {
+            margin: 0; padding: 10px 12px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 10.5px; line-height: 1.65;
+            color: rgba(255,255,255,0.75); white-space: pre; overflow: hidden;
+        }
+        .tok-k { color: #c084fc; }
+        .tok-f { color: #7dd3fc; }
+        .tok-t { color: #fda4af; }
+        .tok-s { color: #fcd34d; }
+        .build-arrow { width: 14px; height: 22px; flex-shrink: 0; overflow: visible; align-self: center; }
+        .build-arrow-line { stroke: var(--color-accent); stroke-width: 1.25; fill: none; stroke-dasharray: 18; stroke-dashoffset: 18; }
+        .build-arrow-head { stroke: var(--color-accent); stroke-width: 1.25; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+        .step-card.in-view .build-arrow-line { animation: drawLine .5s cubic-bezier(.16,1,.3,1) forwards; }
+        .step-card.in-view .build-arrow-head { animation: fadeIn .2s ease .45s forwards; }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .build-app {
+            background: #171717; border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 10px; overflow: hidden; box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+            -webkit-mask-image: linear-gradient(to right, #000 0%, #000 80%, transparent 100%);
+            mask-image: linear-gradient(to right, #000 0%, #000 80%, transparent 100%);
+        }
+        .build-app-head {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .build-app-title { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: #fff; letter-spacing: .01em; }
+        .build-app-count { font-size: 10px; color: rgba(255,255,255,0.5); padding: 1px 6px; background: rgba(255,255,255,0.05); border-radius: 4px; }
+        .build-app-row { display: flex; align-items: center; gap: 14px; padding: 9px 14px; white-space: nowrap; min-width: 520px; }
+        .build-app-row + .build-app-row { border-top: 1px solid rgba(255,255,255,0.04); }
+        .build-app-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; color: rgba(255,255,255,0.5); flex-shrink: 0; }
+        .build-app-name { font-size: 11.5px; color: rgba(255,255,255,0.88); flex-shrink: 0; min-width: 110px; }
+        .build-app-status { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; color: rgba(255,255,255,0.72); flex-shrink: 0; }
+        .build-app-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .build-app-status-packed::before { background: #fbbf24; }
+        .build-app-status-shipped::before { background: #10b981; }
+        .build-app-status-pending::before { background: #94a3b8; }
+        .build-app-date { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; color: rgba(255,255,255,0.4); flex-shrink: 0; }
+        .build-app-assignee { width: 22px; height: 22px; border-radius: 50%; font-size: 9px; font-weight: 600; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: auto; }
+        .build-app-assignee-ak { background: linear-gradient(135deg, #60a5fa, #8b5cf6); }
+        .build-app-assignee-mp { background: linear-gradient(135deg, #f472b6, #8b5cf6); }
+        .build-integrations { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding-top: 6px; }
+        .build-integrations-label { font-family: var(--font-body); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+        .build-chips { position: relative; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 4px 0; width: 100%; }
+        .build-chips::before {
+            content: ''; position: absolute; top: 50%; left: 8%; right: 8%; height: 1px;
+            background: rgba(255,255,255,0.14); transform: translateY(-0.5px); z-index: 0;
+        }
+        .build-chip {
+            position: relative; z-index: 1;
+            font-family: var(--font-body); font-size: 10.5px; color: rgba(255,255,255,0.85);
+            background: var(--color-primary); border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px; padding: 5px 11px;
+            display: inline-flex; align-items: center; gap: 7px;
+            white-space: nowrap; opacity: 0; transform: translateY(4px);
+        }
+        .build-chip::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--color-secondary); box-shadow: 0 0 8px rgba(139,92,246,0.5); flex-shrink: 0; }
+        .step-card.in-view .build-chip { animation: chipIn .35s cubic-bezier(.16,1,.3,1) forwards; }
+        .step-card.in-view .build-chip:nth-child(1) { animation-delay: .55s; }
+        .step-card.in-view .build-chip:nth-child(2) { animation-delay: .7s; }
+        .step-card.in-view .build-chip:nth-child(3) { animation-delay: .85s; }
+        @keyframes chipIn { to { opacity: 1; transform: none; } }
+
+        /* Step 04 — evolve */
+        .evolve-visual { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 380px; }
+        .evolve-msg {
+            display: flex; align-items: flex-start; gap: 10px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--color-border);
+            border-radius: 12px; padding: 12px 14px;
+        }
+        .evolve-msg-avatar {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: linear-gradient(135deg, #f472b6, #8B5CF6);
+            color: #fff; font-size: 10.5px; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .evolve-msg-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+        .evolve-msg-name { font-size: 10.5px; color: rgba(255,255,255,0.5); }
+        .evolve-msg-text { font-size: 12.5px; color: rgba(255,255,255,0.88); margin: 0; line-height: 1.4; }
+        .evolve-msg-text b { color: #fff; font-weight: 600; }
+        .evolve-app {
+            background: #171717; border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 10px; overflow: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+        }
+        .evolve-app-header { display: flex; justify-content: space-between; align-items: center; padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .evolve-app-brand { display: flex; align-items: center; gap: 7px; }
+        .evolve-app-logo {
+            width: 18px; height: 18px; border-radius: 5px;
+            background: linear-gradient(135deg, #8b5cf6, #6366F1);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 9px; font-weight: 700; font-family: var(--font-display);
+        }
+        .evolve-app-name { font-family: var(--font-display); font-size: 11px; font-weight: 600; color: #fff; letter-spacing: .02em; }
+        .evolve-app-user { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #60a5fa, #8b5cf6); }
+        .evolve-tabs { display: flex; align-items: center; gap: 4px; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); flex-wrap: nowrap; }
+        .evolve-tab { font-size: 11px; color: rgba(255,255,255,0.55); padding: 6px 10px; border-radius: 6px; white-space: nowrap; }
+        .evolve-app-content { padding: 12px 14px 14px; }
+        .evolve-content-head { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; }
+        .evolve-content-title { font-family: var(--font-display); font-size: 12px; font-weight: 600; color: #fff; }
+        .evolve-content-count { font-size: 9.5px; color: rgba(255,255,255,0.5); padding: 1px 5px; background: rgba(255,255,255,0.05); border-radius: 3px; }
+        .evolve-content-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 10.5px; white-space: nowrap; }
+        .evolve-content-row + .evolve-content-row { border-top: 1px solid rgba(255,255,255,0.04); }
+        .evolve-content-id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; color: rgba(255,255,255,0.5); }
+        .evolve-content-name { color: rgba(255,255,255,0.85); }
+        .evolve-content-status { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: rgba(255,255,255,0.72); }
+        .evolve-content-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+        .evolve-status-review::before { background: #fbbf24; }
+        .evolve-status-approved::before { background: #10b981; }
+        .evolve-tab-new {
+            color: #fff; background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.3);
+            padding: 5px 10px; display: inline-flex; align-items: center; gap: 6px;
+            opacity: 0; transform: translateX(-8px);
+        }
+        .evolve-tab-badge {
+            font-size: 8.5px; font-weight: 700; padding: 1px 5px;
+            background: var(--color-accent); color: var(--color-primary);
+            border-radius: 3px; letter-spacing: .06em; text-transform: uppercase;
+        }
+        .step-card.in-view .evolve-tab-new {
+            animation: tabSlideIn .4s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        @keyframes tabSlideIn { to { opacity: 1; transform: none; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            .step-card .animate-in,
+            .doc-file,
+            .evolve-tab-new { opacity: 1; transform: none; animation: none; }
+            .build-arrow-line { stroke-dashoffset: 0; animation: none; }
+            .build-arrow-head { opacity: 1; animation: none; }
+        }
+
+        /* PRINCIPLES SECTION */
+        .principles-section { padding: 140px 0; }
+        .principles-label { margin-bottom: 64px; }
+        .principles-headline { margin-bottom: 16px; max-width: 720px; }
+        .principles-sub {
+            font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md);
+            color: var(--color-muted); max-width: 560px; margin-bottom: 72px;
+        }
+        .principles-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+        }
+        .principle-card {
+            background: linear-gradient(160deg, #1e1e1e 0%, #111111 100%);
+            border: 1px solid transparent;
+            border-radius: 16px; padding: 36px 32px;
+            display: flex; flex-direction: column; gap: 0;
+            transition: background .25s;
+        }
+        .principle-card:hover { background: linear-gradient(160deg, #232323 0%, #111111 100%); }
+        .principle-card-icon {
+            display: flex; align-items: center; justify-content: flex-start;
+            margin-bottom: 72px; flex-shrink: 0;
+        }
+        .principle-card-icon svg { width: 28px; height: 28px; stroke-width: 1.5; color: var(--color-secondary); }
+        .principle-card-title {
+            font-family: var(--font-display); font-size: var(--h4); font-weight: 400;
+            letter-spacing: var(--ls-heading); color: #fff; margin-bottom: 16px;
+        }
+        .principle-card-tags {
+            display: flex; flex-wrap: wrap; gap: 6px;
+            margin-top: 24px;
+        }
+        .principle-card-tag {
+            display: inline-flex;
+            font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--color-secondary);
+            background: rgba(139,92,246,.08);
+            border: 1px solid rgba(139,92,246,.22);
+            padding: 4px 10px; border-radius: 100px;
+        }
+        .principle-card-desc {
+            font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm);
+            color: var(--color-muted); margin-top: auto;
+        }
+
+        /* TEAM SECTION */
+        .team-section { padding: 140px 0; }
+        .team-label { margin-bottom: 32px; }
+        .team-headline { margin-bottom: 16px; max-width: 720px; }
+        .team-desc {
+            font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md);
+            color: var(--color-muted); max-width: 560px; margin-bottom: 72px;
+        }
+
+        /* Team grid — 4 cards per row */
+        .team-members {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+            margin-bottom: 96px;
+        }
+        .team-member-card {
+            display: flex; flex-direction: column; gap: 0;
+            transition: transform .25s cubic-bezier(.16,1,.3,1);
+        }
+        .team-member-card:hover { transform: translateY(-3px); }
+        .team-member-photo {
+            width: 100%; aspect-ratio: 1 / 1;
+            background: #1f1f1f;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+        .team-member-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .team-member-name {
+            font-family: var(--font-display); font-size: var(--h6);
+            font-weight: 400; letter-spacing: var(--ls-heading); color: #fff;
+            margin-bottom: 4px; display: block;
+        }
+        .team-member-role { font-size: var(--body-sm); font-weight: 300; color: var(--color-muted); display: block; }
+
+        /* APPROACH SECTION */
+        .approach-section { padding: 140px 0; }
+        .approach-label { margin-bottom: 64px; }
+        .approach-header {
+            display: grid; grid-template-columns: 1.4fr 1fr;
+            gap: 80px; align-items: start;
+            margin-bottom: 96px;
+        }
+        .approach-headline {
+            font-size: var(--h1);
+            color: #fff; max-width: 640px;
+        }
+        .approach-desc {
+            font-size: var(--body-lg); font-weight: 300; line-height: var(--lh-body-lg);
+            color: var(--color-muted); max-width: 460px;
+            padding-top: 14px;
+        }
+        .approach-list {
+            display: grid; grid-template-columns: 1fr; row-gap: 0;
+        }
+        .approach-item {
+            display: flex; flex-direction: row; align-items: flex-start; gap: 80px;
+            padding-top: 36px; padding-bottom: 36px;
+            border-top: 1px solid var(--color-border);
+        }
+        .approach-item-head {
+            flex: 0 0 45%; display: flex; align-items: baseline; gap: 18px;
+        }
+        .approach-num {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 10.5px; letter-spacing: .12em;
+            color: var(--color-secondary);
+            background: rgba(139,92,246,.08);
+            border: 1px solid rgba(139,92,246,.2);
+            border-radius: 6px; padding: 4px 8px;
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+        .approach-item-title {
+            font-family: var(--font-display);
+            font-size: var(--h4); font-weight: 400;
+            letter-spacing: var(--ls-heading); color: #fff;
+            flex: 1; line-height: var(--lh-heading);
+        }
+        .approach-item-plus { display: none; }
+        .approach-item-desc {
+            flex: 1;
+            font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md);
+            color: var(--color-muted); padding-left: 0;
+        }
+
+        /* VALUES SECTION */
+        .values-section { padding: 140px 0; }
+        .values-label { margin-bottom: 64px; }
+        .values-headline { margin-bottom: 24px; max-width: 680px; }
+        .values-header-row { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; margin-bottom: 72px; }
+        .values-desc { font-size: var(--body-lg); font-weight: 300; line-height: var(--lh-body-lg); color: var(--color-muted); max-width: 520px; }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .value-card {
+            background: linear-gradient(160deg, #1e1e1e 0%, #111111 100%);
+            border: 1px solid transparent;
+            border-radius: 16px;
+            padding: 40px 36px;
+            display: flex; flex-direction: column; gap: 0;
+            position: relative; overflow: hidden;
+            transition: background .25s;
+        }
+        .value-card::before { display: none; }
+        .value-card:hover { background: linear-gradient(160deg, #232323 0%, #111111 100%); }
+        .value-icon {
+            width: 44px; height: 44px;
+            background: rgba(139,92,246,.1); border: 1px solid rgba(139,92,246,.2);
+            border-radius: 12px;
+            margin-bottom: 28px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .value-icon svg { width: 20px; height: 20px; stroke-width: 1.5; color: var(--color-secondary); }
+        .value-title {
+            font-family: var(--font-display); font-size: var(--h5);
+            font-weight: 400; letter-spacing: var(--ls-heading); color: #fff; margin-bottom: 16px;
+        }
+        .value-desc {
+            font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm);
+            color: var(--color-muted); margin-top: auto;
+        }
+
+        /* CTA */
+        [data-comment="cta-section"] {
+            min-height: 80vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 140px 56px;
+        }
+        [data-comment="cta-inner"] { display: flex; flex-direction: column; align-items: center; }
+        [data-comment="cta-label"] { margin-bottom: 48px; }
+        [data-comment="cta-headline"] {
+            font-size: var(--display-xl); line-height: var(--lh-heading); max-width: 800px; margin-bottom: 32px;
+        }
+        [data-comment="cta-headline-bold"] { color: var(--color-secondary); }
+        [data-comment="cta-micro"] { display: block; font-size: 16px; font-weight: 300; color: var(--color-muted); margin-bottom: 52px; }
+        .cta-btns { display: flex; align-items: center; gap: 16px; }
+
+        /* FOOTER */
+        [data-comment="footer"] {
+            padding: 96px 56px 40px;
+            border-top: 1px solid var(--color-border);
+            background: var(--color-primary);
+        }
+        [data-comment="footer-inner"] { max-width: var(--max-w); margin: 0 auto; }
+        [data-comment="footer-top"] {
+            display: grid; grid-template-columns: 1.4fr 1fr;
+            gap: 64px; padding-bottom: 72px;
+        }
+        [data-comment="footer-brand"] { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+        [data-comment="footer-brand-logo"] { font-family: var(--font-display); font-size: var(--h4); color: #fff; text-decoration: none; letter-spacing: .02em; }
+        [data-comment="footer-brand-tagline"] { font-size: var(--body-md); font-weight: 300; line-height: var(--lh-body-md); color: var(--color-muted); max-width: 360px; }
+        [data-comment="footer-email"] { font-size: var(--body-md); color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 2px; transition: border-color .2s, color .2s; }
+        [data-comment="footer-email"]:hover { border-color: var(--color-secondary); color: var(--color-secondary); }
+        [data-comment="footer-cols"] { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .footer-col-title { font-family: var(--font-body); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 20px; display: block; }
+        .footer-col-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-link { font-size: var(--body-md); color: #fff; text-decoration: none; transition: color .2s; }
+        .footer-link:hover { color: var(--color-secondary); }
+        [data-comment="footer-wordmark"] {
+            font-family: var(--font-display); font-size: var(--display-xl);
+            line-height: .85; letter-spacing: -.02em; color: #fff;
+            padding: 40px 0 32px; text-align: left; word-break: normal;
+        }
+        [data-comment="footer-bottom"] {
+            border-top: 1px solid var(--color-border);
+            padding-top: 28px; display: flex; justify-content: space-between; align-items: center;
+            font-size: var(--body-sm); color: var(--color-muted);
+        }
+
+        /* MODAL */
+        [data-comment="cu-overlay"] {
+            position: fixed; inset: 0; z-index: 200;
+            background: rgba(8,8,10,.76);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px; opacity: 0; visibility: hidden;
+            transition: opacity .3s ease, visibility .3s ease;
+        }
+        [data-comment="cu-overlay"].is-open { opacity: 1; visibility: visible; }
+        [data-comment="cu-modal"] {
+            background: rgba(20,20,22,0.96);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 16px; width: 100%; max-width: 480px;
+            padding: 40px; position: relative;
+            transform: translateY(12px) scale(0.98);
+            transition: transform .35s cubic-bezier(.16,1,.3,1);
+            max-height: calc(100vh - 48px); overflow-y: auto;
+        }
+        [data-comment="cu-overlay"].is-open [data-comment="cu-modal"] { transform: none; }
+        [data-comment="cu-close"] {
+            position: absolute; top: 16px; right: 16px;
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+            color: var(--color-muted); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: color .2s, border-color .2s, background .2s;
+        }
+        [data-comment="cu-close"]:hover { color: #fff; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.06); }
+        [data-comment="cu-close"] svg { width: 16px; height: 16px; stroke-width: 1.8; }
+        [data-comment="cu-heading"] {
+            font-family: var(--font-display); font-size: var(--h3);
+            font-weight: 200; letter-spacing: var(--ls-heading);
+            line-height: var(--lh-heading-tight); margin-bottom: 10px; color: #fff;
+        }
+        [data-comment="cu-sub"] { font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm); color: var(--color-muted); margin-bottom: 28px; }
+        [data-comment="cu-form"] { display: flex; flex-direction: column; gap: 16px; }
+        .cu-field { display: flex; flex-direction: column; gap: 6px; }
+        .cu-label { font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--color-muted); }
+        .cu-required::after { content: ' *'; color: #ef4444; margin-left: 2px; }
+        .cu-input, .cu-textarea {
+            width: 100%; padding: 12px 14px;
+            background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.1);
+            border-radius: 8px; color: #fff; font-family: var(--font-body); font-size: 14px;
+            transition: border-color .2s, background .2s;
+        }
+        .cu-input:focus, .cu-textarea:focus { outline: none; border-color: rgba(139,92,246,.55); background: rgba(255,255,255,.05); }
+        .cu-input::placeholder, .cu-textarea::placeholder { color: rgba(255,255,255,.25); }
+        .cu-textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+        [data-comment="cu-submit"] { margin-top: 8px; width: 100%; }
+        [data-comment="cu-success"] { display: none; text-align: center; padding: 12px 0; }
+        [data-comment="cu-overlay"].is-success [data-comment="cu-form"] { display: none; }
+        [data-comment="cu-overlay"].is-success [data-comment="cu-sub"] { display: none; }
+        [data-comment="cu-overlay"].is-success [data-comment="cu-success"] { display: block; }
+        .cu-success-icon {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: rgba(197,255,0,.14); border: 1px solid rgba(197,255,0,.55);
+            display: inline-flex; align-items: center; justify-content: center;
+            color: var(--color-accent); margin-bottom: 20px;
+        }
+        .cu-success-icon svg { width: 24px; height: 24px; stroke-width: 2; }
+        [data-comment="cu-success-heading"] { font-family: var(--font-display); font-size: var(--h4); font-weight: 300; letter-spacing: var(--ls-heading); margin-bottom: 8px; color: #fff; }
+        [data-comment="cu-success-sub"] { font-size: var(--body-sm); font-weight: 300; line-height: var(--lh-body-sm); color: var(--color-muted); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .page-hero { padding: 140px 24px 80px; }
+            [data-comment="process-section"] .wrap { padding-left: 24px; padding-right: 24px; }
+            [data-comment="process-grid"] { grid-template-columns: 1fr; }
+            .step-card { min-height: 440px; padding: 28px 24px 32px; }
+            .step-card-visual { min-height: 220px; margin-bottom: 32px; }
+            .principles-section .wrap,
+            .team-section .wrap,
+            .values-section .wrap { padding-left: 24px; padding-right: 24px; }
+            .principles-grid { grid-template-columns: 1fr; }
+            .team-members { grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 64px; }
+            .approach-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 64px; }
+            .approach-list { row-gap: 0; }
+            .approach-item { flex-direction: column; gap: 14px; }
+            .approach-item-head { flex: none; width: auto; }
+            .approach-item-desc { max-width: 480px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .value-card { border-right: none; border-bottom: 1px solid var(--color-border); padding: 32px 0; }
+            .value-card:last-child { border-bottom: none; }
+            [data-comment="cta-section"] { padding: 100px 24px; }
+            .cta-btns { flex-direction: column; }
+            [data-comment="footer"] { padding: 72px 24px 32px; }
+            [data-comment="footer-top"] { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<header data-comment="header">
+    <a href="index.html" data-comment="header-logo">Rivne Tech</a>
+    <nav>
+        <ul data-comment="header-nav">
+            <li><a href="solutions.html" class="nav-link" data-comment="header-nav-solutions">Solutions</a></li>
+            <li><a href="industries.html" class="nav-link" data-comment="header-nav-industries">Industries</a></li>
+            <li><a href="how-we-work.html" class="nav-link active" aria-current="page" data-comment="header-nav-process">How we work</a></li>
+        </ul>
+    </nav>
+    <a href="#" data-cu-open data-comment="header-cta" class="btn btn-primary btn-sm">Let's Talk</a>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <span class="fu tag page-hero-tag"><i data-lucide="git-branch"></i>How We Work</span>
+    <h1 class="fu page-hero-h1">We respect complexity and <span style="color:#8B5CF6">translate it into systems</span></h1>
+    <p class="fu page-hero-sub">We don't simplify your operation — we understand it. Then we build the tools to run it without the friction.</p>
+    <a href="#" data-cu-open class="fu btn btn-primary btn-lg">Let's Talk</a>
+</section>
+
+<!-- PROCESS -->
+<section data-comment="process-section" id="process">
+    <div class="wrap">
+        <span class="fu tag" data-comment="process-label"><i data-lucide="git-branch"></i>The Process</span>
+        <h2 data-comment="process-headline" class="fu">From workflow to system</h2>
+        <p class="fu process-desc">Four stages, one team. From the first site visit to long-term support — structured to keep your operation running without gaps.</p>
+        <div data-comment="process-grid">
+            <article class="step-card" data-comment="process-step-1">
+                <span class="step-card-fig">Step 01</span>
+                <div class="step-card-visual">
+                    <div class="step-card-visual-inner">
+                        <div class="discovery-visual">
+                            <div class="doc-card">
+                                <div class="doc-card-head">
+                                    <span class="doc-card-title">Ops audit · Intake flow</span>
+                                    <span class="doc-card-tag">Notes</span>
+                                </div>
+                                <dl class="doc-list">
+                                    <div class="doc-row"><dt>Owner</dt><dd>Anna K.</dd></div>
+                                    <div class="doc-row"><dt>Trigger</dt><dd>PO from EBMS</dd></div>
+                                    <div class="doc-row"><dt>Exception</dt><dd>Weekend — phone approval</dd></div>
+                                    <div class="doc-row animate-in"><dt>Blocker</dt><dd>Manual reconcile w/ Excel</dd></div>
+                                </dl>
+                            </div>
+                            <div class="doc-files">
+                                <span class="doc-file"><i data-lucide="file-text"></i>intake-flow.md</span>
+                                <span class="doc-file"><i data-lucide="file"></i>audit-2026.pdf</span>
+                                <span class="doc-file"><i data-lucide="figma"></i>user-flow.figjam</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="step-card-title">We map how your operation actually runs</h3>
+                <p class="step-card-desc">Interviews with your team, shadowing the workflows, auditing the spreadsheets. We document the constraints, exceptions, and tribal knowledge that never made it into any doc.</p>
+            </article>
+            <article class="step-card" data-comment="process-step-2">
+                <span class="step-card-fig">Step 02</span>
+                <div class="step-card-visual">
+                    <div class="step-card-visual-inner">
+                        <div class="wf-container">
+                            <span class="wf-tag">Option 1</span>
+                            <div class="wf-app">
+                                <div class="wf-app-head">
+                                    <span class="wf-app-title">Orders</span>
+                                    <span class="wf-app-count">248</span>
+                                </div>
+                                <div class="wf-app-toolbar">
+                                    <span class="wf-chip">All regions <span class="wf-chip-caret">▾</span></span>
+                                    <span class="wf-chip">Oct 2026 <span class="wf-chip-caret">▾</span></span>
+                                    <span class="wf-chip wf-chip-target">+ Add filter</span>
+                                </div>
+                                <div class="wf-app-table">
+                                    <div class="wf-table-row">
+                                        <span class="wf-table-id">#58201</span>
+                                        <span class="wf-table-name">Acme Corp</span>
+                                        <span class="wf-table-status wf-status-packed">Packed</span>
+                                    </div>
+                                    <div class="wf-table-row">
+                                        <span class="wf-table-id">#58202</span>
+                                        <span class="wf-table-name">Globex</span>
+                                        <span class="wf-table-status wf-status-shipped">Shipped</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wf-comment animate-in">
+                                <div class="wf-comment-avatar">SK</div>
+                                <div class="wf-comment-body">
+                                    <span class="wf-comment-name">Sarah · Client</span>
+                                    <p class="wf-comment-text">Add filter by status here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="step-card-title">A clickable prototype before a line of code</h3>
+                <p class="step-card-desc">Screen-by-screen flows you can actually click through — reviewed and signed off together. Real navigation, real feedback, before a single line of production code is written.</p>
+            </article>
+            <article class="step-card" data-comment="process-step-3">
+                <span class="step-card-fig">Step 03</span>
+                <div class="step-card-visual">
+                    <div class="step-card-visual-inner">
+                        <div class="build-visual">
+                            <div class="build-code">
+                                <div class="build-code-head">
+                                    <span class="build-code-tab">orders.tsx</span>
+                                </div>
+                                <pre class="build-code-body"><span class="tok-k">const</span> orders =
+  <span class="tok-f">useEBMS</span>(<span class="tok-s">'po'</span>)
+
+<span class="tok-k">return</span> &lt;<span class="tok-t">Table</span> /&gt;</pre>
+                            </div>
+                            <svg class="build-arrow" viewBox="0 0 14 22">
+                                <path class="build-arrow-line" d="M7 0 V16"/>
+                                <path class="build-arrow-head" d="M3 13 L7 18 L11 13"/>
+                            </svg>
+                            <div class="build-app">
+                                <div class="build-app-head">
+                                    <span class="build-app-title">Orders</span>
+                                    <span class="build-app-count">248</span>
+                                </div>
+                                <div class="build-app-row">
+                                    <span class="build-app-id">#58201</span>
+                                    <span class="build-app-name">Acme Logistics</span>
+                                    <span class="build-app-status build-app-status-packed">Packed</span>
+                                    <span class="build-app-date">Oct 22</span>
+                                    <span class="build-app-assignee build-app-assignee-ak">AK</span>
+                                </div>
+                                <div class="build-app-row">
+                                    <span class="build-app-id">#58202</span>
+                                    <span class="build-app-name">Globex Industries</span>
+                                    <span class="build-app-status build-app-status-shipped">Shipped</span>
+                                    <span class="build-app-date">Oct 22</span>
+                                    <span class="build-app-assignee build-app-assignee-mp">MP</span>
+                                </div>
+                                <div class="build-app-row">
+                                    <span class="build-app-id">#58203</span>
+                                    <span class="build-app-name">Initech Co.</span>
+                                    <span class="build-app-status build-app-status-pending">Pending</span>
+                                    <span class="build-app-date">Oct 21</span>
+                                    <span class="build-app-assignee build-app-assignee-ak">AK</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="step-card-title">From wireframe to working app</h3>
+                <p class="step-card-desc">We write the front-end, the back-end, and the integrations that tie them to EBMS and the tools your team already uses. Real data flowing through real screens before anyone logs in.</p>
+            </article>
+            <article class="step-card" data-comment="process-step-4">
+                <span class="step-card-fig">Step 04</span>
+                <div class="step-card-visual">
+                    <div class="step-card-visual-inner">
+                        <div class="evolve-visual">
+                            <div class="evolve-msg">
+                                <div class="evolve-msg-avatar">SK</div>
+                                <div class="evolve-msg-body">
+                                    <span class="evolve-msg-name">Sarah · Client</span>
+                                    <p class="evolve-msg-text">Can we add a <b>Returns</b> tab?</p>
+                                </div>
+                            </div>
+                            <div class="evolve-app">
+                                <div class="evolve-app-header">
+                                    <div class="evolve-app-brand">
+                                        <span class="evolve-app-logo">R</span>
+                                        <span class="evolve-app-name">Ops</span>
+                                    </div>
+                                    <span class="evolve-app-user"></span>
+                                </div>
+                                <nav class="evolve-tabs">
+                                    <span class="evolve-tab">Orders</span>
+                                    <span class="evolve-tab">Shipments</span>
+                                    <span class="evolve-tab">Warehouse</span>
+                                    <span class="evolve-tab evolve-tab-new">
+                                        Returns
+                                        <span class="evolve-tab-badge">new</span>
+                                    </span>
+                                </nav>
+                                <div class="evolve-app-content">
+                                    <div class="evolve-content-head">
+                                        <span class="evolve-content-title">Returns</span>
+                                        <span class="evolve-content-count">12</span>
+                                    </div>
+                                    <div class="evolve-content-row">
+                                        <span class="evolve-content-id">#R-101</span>
+                                        <span class="evolve-content-name">Acme Logistics</span>
+                                        <span class="evolve-content-status evolve-status-review">Review</span>
+                                    </div>
+                                    <div class="evolve-content-row">
+                                        <span class="evolve-content-id">#R-102</span>
+                                        <span class="evolve-content-name">Globex</span>
+                                        <span class="evolve-content-status evolve-status-approved">Approved</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="step-card-title">The system grows with your operation</h3>
+                <p class="step-card-desc">New roles, new workflows, new branches — added without rewriting the foundation. No dead ends, no full rebuild every two years.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="principles-section">
+    <div class="wrap">
+        <span class="fu tag principles-label"><i data-lucide="layers"></i>What You Get</span>
+        <h2 class="fu principles-headline">Three principles behind every system we build</h2>
+        <p class="fu principles-sub">Not a template. Not a generic platform. A system built around how your operation actually works.</p>
+        <div class="principles-grid">
+            <div class="principle-card fu">
+                <div class="principle-card-icon">
+                    <i data-lucide="settings-2"></i>
+                </div>
+                <h3 class="principle-card-title">Built around your workflow</h3>
+                <p class="principle-card-desc">We capture how your work actually flows — the shortcuts, approvals, and edge cases. Your exceptions are features, not bugs.</p>
+                <div class="principle-card-tags">
+                    <span class="principle-card-tag">rules</span>
+                    <span class="principle-card-tag">exceptions</span>
+                    <span class="principle-card-tag">ownership</span>
+                </div>
+            </div>
+            <div class="principle-card fu">
+                <div class="principle-card-icon">
+                    <i data-lucide="database"></i>
+                </div>
+                <h3 class="principle-card-title">Connected to ERP data you already trust</h3>
+                <p class="principle-card-desc">Every screen pulls from EBMS — no re-keying, no sync issues. What's in your ERP is what your team sees, always current.</p>
+                <div class="principle-card-tags">
+                    <span class="principle-card-tag">no duplicate entry</span>
+                    <span class="principle-card-tag">single source</span>
+                </div>
+            </div>
+            <div class="principle-card fu">
+                <div class="principle-card-icon">
+                    <i data-lucide="layout-grid"></i>
+                </div>
+                <h3 class="principle-card-title">One place to run the work</h3>
+                <p class="principle-card-desc">Orders, tasks, approvals — all in one interface. Everyone sees what they need to see, and nothing falls through the cracks.</p>
+                <div class="principle-card-tags">
+                    <span class="principle-card-tag">visibility</span>
+                    <span class="principle-card-tag">cross-team</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+    <div class="wrap">
+        <span class="fu tag team-label"><i data-lucide="users"></i>The Team</span>
+        <h1 class="fu team-headline">People who understand operations</h1>
+        <p class="fu team-desc">We're a small team of engineers who have spent years building systems for complex, real-world workflows. We don't hand work off — we stay with you through every stage.</p>
+
+        <div class="team-members">
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Alex Sotsky.png" alt="Alex Sotsky"></div>
+                <span class="team-member-name">Alex Sotsky</span>
+                <span class="team-member-role">CEO</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Brett Ostrander.png" alt="Brett Ostrander"></div>
+                <span class="team-member-name">Brett Ostrander</span>
+                <span class="team-member-role">CEO & PM</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Sasha Adazhii.png" alt="Sasha Adazhii"></div>
+                <span class="team-member-name">Sasha Adazhii</span>
+                <span class="team-member-role">Backend Developer & Customer Support</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Tamara Zasiadvovk.png?v=3" alt="Tamara Zasiadvovk"></div>
+                <span class="team-member-name">Tamara Zasiadvovk</span>
+                <span class="team-member-role">UX Engineer & Product Designer</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Oleksiy Adazhii.png" alt="Oleksiy Adazhii"></div>
+                <span class="team-member-name">Oleksiy Adazhii</span>
+                <span class="team-member-role">Frontend Developer</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Bohdan Vlasiuk.png" alt="Bohdan Vlasiuk"></div>
+                <span class="team-member-name">Bohdan Vlasiuk</span>
+                <span class="team-member-role">Backend Developer</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Oksana Nevirkovets.png" alt="Oksana Nevirkovets"></div>
+                <span class="team-member-name">Oksana Nevirkovets</span>
+                <span class="team-member-role">Frontend Developer</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/George Panchuk.png" alt="George Panchuk"></div>
+                <span class="team-member-name">George Panchuk</span>
+                <span class="team-member-role">Frontend Developer</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Nazar Korol.png" alt="Nazar Korol"></div>
+                <span class="team-member-name">Nazar Korol</span>
+                <span class="team-member-role">Frontend Developer</span>
+            </div>
+            <div class="team-member-card fu">
+                <div class="team-member-photo"><img src="Team photos/Taras Humeniuk.png?v=2" alt="Taras Humeniuk"></div>
+                <span class="team-member-name">Taras Humeniuk</span>
+                <span class="team-member-role">Frontend Developer</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach-section">
+    <div class="wrap">
+        <span class="fu tag approach-label"><i data-lucide="compass"></i>Approach</span>
+        <div class="approach-header">
+            <h1 class="fu">Discovery, prototype, build, evolve — together with you</h1>
+            <p class="fu approach-desc">We work alongside your team. From understanding how your operation actually runs to evolving the system as you grow — we stay through every stage.</p>
+        </div>
+        <div class="approach-list">
+            <article class="approach-item fu">
+                <header class="approach-item-head">
+                    <span class="approach-num">01</span>
+                    <h3 class="approach-item-title">We spend time on-site before we write specs</h3>
+                    <span class="approach-item-plus">+</span>
+                </header>
+                <p class="approach-item-desc">Discovery isn't a Zoom call. We shadow workflows, ask the people actually doing the work, and document what the system needs to handle — including the edge cases.</p>
+            </article>
+            <article class="approach-item fu">
+                <header class="approach-item-head">
+                    <span class="approach-num">02</span>
+                    <h3 class="approach-item-title">We prototype before we code</h3>
+                    <span class="approach-item-plus">+</span>
+                </header>
+                <p class="approach-item-desc">Clickable screens reviewed and signed off before a line of production code is written. Changes are cheap at this stage — we use that to our advantage.</p>
+            </article>
+            <article class="approach-item fu">
+                <header class="approach-item-head">
+                    <span class="approach-num">03</span>
+                    <h3 class="approach-item-title">We integrate deeply with your existing stack</h3>
+                    <span class="approach-item-plus">+</span>
+                </header>
+                <p class="approach-item-desc">EBMS, your ERP, the tools your team already trusts. No parallel systems, no data migration headaches — we build where your data already lives.</p>
+            </article>
+            <article class="approach-item fu">
+                <header class="approach-item-head">
+                    <span class="approach-num">04</span>
+                    <h3 class="approach-item-title">We stay after launch</h3>
+                    <span class="approach-item-plus">+</span>
+                </header>
+                <p class="approach-item-desc">The system evolves as your operation does. New workflows, new teams, new branches — added without rewriting the foundation.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+    <div class="wrap">
+        <span class="fu tag values-label"><i data-lucide="heart"></i>Why Rivne Tech</span>
+        <h2 class="fu values-headline">Built on operational respect</h2>
+        <div class="fu values-header-row">
+            <p class="fu values-desc">We're not a dev shop you hand a spec to. We learn how your operation actually runs — then build systems that hold up to it.</p>
+            <a href="#" data-cu-open class="fu btn btn-primary btn-md">Let's Talk</a>
+        </div>
+        <div class="values-grid">
+            <div class="value-card fu">
+                <div class="value-icon"><i data-lucide="eye"></i></div>
+                <h3 class="value-title">Operational respect</h3>
+                <p class="value-desc">We learn your edge cases before we build. Your processes aren't problems to be solved — they're constraints to be honoured. The system works the way your team works.</p>
+            </div>
+            <div class="value-card fu">
+                <div class="value-icon"><i data-lucide="shield-check"></i></div>
+                <h3 class="value-title">Reliability</h3>
+                <p class="value-desc">Systems that run during peak season, on-call, without surprises. We build for the long run — not MVP-first, scale-never. If it breaks, we fix it. That's part of the deal.</p>
+            </div>
+            <div class="value-card fu">
+                <div class="value-icon"><i data-lucide="handshake"></i></div>
+                <h3 class="value-title">Long-term partnership</h3>
+                <p class="value-desc">We don't disappear after launch. We evolve the system as your operation grows — new teams, new workflows, new requirements. We're invested in how well it runs, not just that it shipped.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section data-comment="cta-section" id="cta">
+    <div data-comment="cta-inner">
+        <span class="fu tag" data-comment="cta-label"><i data-lucide="message-circle"></i>Let's Talk</span>
+        <h2 data-comment="cta-headline" class="fu">
+            Show your workaround.<br>
+            <span data-comment="cta-headline-bold">We'll map it</span>
+        </h2>
+        <span data-comment="cta-micro" class="fu">No pitch deck. Just a conversation about how your operation runs.</span>
+        <div class="fu cta-btns">
+            <a href="#" data-cu-open class="btn btn-primary btn-lg">Let's Talk</a>
+            <a href="solutions.html" class="btn btn-secondary btn-lg">See our solutions →</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-comment="footer">
+    <div data-comment="footer-inner">
+        <div data-comment="footer-top">
+            <div data-comment="footer-brand">
+                <a href="index.html" data-comment="footer-brand-logo">Rivne Tech</a>
+                <p data-comment="footer-brand-tagline">Custom ERP-connected systems for operations that outgrew spreadsheets.</p>
+                <a href="mailto:hello@rivnetech.com" data-comment="footer-email">hello@rivnetech.com</a>
+            </div>
+            <div data-comment="footer-cols">
+                <div data-comment="footer-col-navigate">
+                    <span class="footer-col-title">Navigate</span>
+                    <ul class="footer-col-list">
+                        <li><a href="solutions.html" class="footer-link">Solutions</a></li>
+                        <li><a href="how-we-work.html" class="footer-link">How we work</a></li>
+                    </ul>
+                </div>
+                <div data-comment="footer-col-connect">
+                    <span class="footer-col-title">Connect</span>
+                    <ul class="footer-col-list">
+                        <li><a href="#" data-cu-open class="footer-link">Contact us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-comment="footer-wordmark">Rivne Tech</div>
+        <div data-comment="footer-bottom">
+            <span>© 2026 Rivne Tech. All rights reserved.</span>
+            <span>Built in Ukraine.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- CONTACT MODAL -->
+<div data-comment="cu-overlay" aria-hidden="true">
+    <div data-comment="cu-modal" role="dialog" aria-labelledby="cu-heading" aria-modal="true">
+        <button type="button" data-comment="cu-close" aria-label="Close"><i data-lucide="x"></i></button>
+        <h3 data-comment="cu-heading" id="cu-heading">Contact us</h3>
+        <p data-comment="cu-sub">Leave a message and we'll get back to you within a day.</p>
+        <form data-comment="cu-form">
+            <div class="cu-field">
+                <label class="cu-label cu-required" for="cu-input-name">Name</label>
+                <input type="text" id="cu-input-name" class="cu-input" placeholder="Your name" required />
+            </div>
+            <div class="cu-field">
+                <label class="cu-label cu-required" for="cu-input-email">Email</label>
+                <input type="email" id="cu-input-email" class="cu-input" placeholder="you@company.com" required />
+            </div>
+            <div class="cu-field">
+                <label class="cu-label" for="cu-input-company">Company</label>
+                <input type="text" id="cu-input-company" class="cu-input" placeholder="Optional" />
+            </div>
+            <div class="cu-field">
+                <label class="cu-label cu-required" for="cu-input-message">Message</label>
+                <textarea id="cu-input-message" class="cu-textarea" placeholder="Tell us about your operations…" required></textarea>
+            </div>
+            <button type="submit" data-comment="cu-submit" class="btn btn-primary btn-lg">Send message</button>
+        </form>
+        <div data-comment="cu-success">
+            <div class="cu-success-icon"><i data-lucide="check"></i></div>
+            <h3 data-comment="cu-success-heading">Thanks — we'll be in touch</h3>
+            <p data-comment="cu-success-sub">Your message is on its way. We usually reply within a day.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+
+    // Contact Us modal
+    (function() {
+        const overlay = document.querySelector('[data-comment="cu-overlay"]');
+        if (!overlay) return;
+        const form = overlay.querySelector('[data-comment="cu-form"]');
+        const closeBtn = overlay.querySelector('[data-comment="cu-close"]');
+        const openers = document.querySelectorAll('[data-cu-open]');
+
+        function open(e) {
+            if (e) e.preventDefault();
+            overlay.classList.add('is-open');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => overlay.querySelector('.cu-input')?.focus(), 250);
+        }
+        function close() {
+            overlay.classList.remove('is-open');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                overlay.classList.remove('is-success');
+                form.reset();
+            }, 300);
+        }
+
+        openers.forEach(el => el.addEventListener('click', open));
+        closeBtn.addEventListener('click', close);
+        overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+        });
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            overlay.classList.add('is-success');
+        });
+    })();
+
+    // Cursor glow for .tag and .btn
+    document.querySelectorAll('.tag, .btn').forEach(el => {
+        el.addEventListener('mousemove', e => {
+            const r = el.getBoundingClientRect();
+            el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+            el.style.setProperty('--my', `${e.clientY - r.top}px`);
+        });
+    });
+
+    // Fade-up animations
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const root = e.target.closest('section, footer');
+            const group = root ? [...root.querySelectorAll('.fu')] : [e.target];
+            const i = group.indexOf(e.target);
+            setTimeout(() => e.target.classList.add('in'), i * 55);
+            io.unobserve(e.target);
+        });
+    }, { threshold: .1 });
+    document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+    // Step card animations
+    (() => {
+        const stepCards = [...document.querySelectorAll('.step-card')];
+        if (!stepCards.length) return;
+        const STEP_DURATIONS = [1150, 600, 700, 450];
+        const STEP_GAP = 220;
+        const stepIo = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                stepIo.unobserve(e.target);
+                let t = 0;
+                stepCards.forEach((card, i) => {
+                    setTimeout(() => card.classList.add('in-view'), t);
+                    t += STEP_DURATIONS[i] + STEP_GAP;
+                });
+            });
+        }, { threshold: .4 });
+        stepIo.observe(stepCards[0]);
+    })();
+</script>
+<script>
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('[data-comment="header"]');
+        if (header) header.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+</script>
+</body>
+</html>
