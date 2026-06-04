@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <style>
         @font-face {
             font-family: 'VioletSans';
@@ -111,18 +112,21 @@
 
         [data-comment="header"] {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 24px 56px; display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 40px; display: flex; align-items: center; justify-content: space-between;
             transition: background .4s, border-color .4s; border-bottom: 1px solid transparent;
         }
         [data-comment="header"].scrolled {
             background: rgba(17,17,17,.92); backdrop-filter: blur(14px); border-color: var(--color-border);
         }
         [data-comment="header-logo"] {
-            font-family: var(--font-display); font-weight: 800; font-size: 16px;
-            color: #fff; text-decoration: none; letter-spacing: .04em;
+            display: inline-flex; align-items: center; text-decoration: none;
         }
-        [data-comment="header-nav"] { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
-        .nav-link { font-size: 13px; color: var(--color-muted); text-decoration: none; transition: color .2s; }
+        [data-comment="header-logo"] img {
+            height: 28px; width: auto; display: block;
+        }
+        [data-comment="header"] > nav { position: absolute; left: 50%; transform: translateX(-50%); }
+        [data-comment="header-nav"] { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
+        .nav-link { font-size: 15px; color: var(--color-muted); text-decoration: none; transition: color .2s; letter-spacing: 0.01em; }
         .nav-link:hover, .nav-link.active { color: #fff; }
 
 
@@ -354,7 +358,13 @@
             font-family: var(--font-display); font-size: var(--display-xl);
             line-height: .85; letter-spacing: -.02em; color: #fff;
             padding: 40px 0 32px; text-align: left; word-break: normal;
+            display: flex; justify-content: space-between; align-items: flex-end;
         }
+        .footer-social { display: flex; gap: 16px; align-items: center; padding-bottom: 4px; }
+        .footer-social-link { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.35); transition: color .2s; }
+        .footer-social-link, .footer-social-link i { text-decoration: none; }
+        .footer-social-link:hover { color: rgba(255,255,255,.8); }
+        .footer-social-link i { font-size: 20px; line-height: 1; }
         [data-comment="footer-bottom"] {
             border-top: 1px solid var(--color-border);
             padding-top: 28px; display: flex; justify-content: space-between; align-items: center;
@@ -460,7 +470,9 @@
 <body>
 
 <header data-comment="header">
-    <a href="index.html" data-comment="header-logo">Rivne Tech</a>
+    <a href="home.html" data-comment="header-logo">
+        <img src="Logo/Logo2.png" alt="Rivne Tech">
+    </a>
     <nav>
         <ul data-comment="header-nav">
             <li><a href="solutions.html" class="nav-link active" aria-current="page" data-comment="header-nav-solutions">Solutions</a></li>
@@ -635,7 +647,7 @@
         <span data-comment="cta-micro" class="fu">Every operation is different. Tell us how yours works.</span>
         <div class="fu cta-btns">
             <a href="#" data-cu-open class="btn btn-primary btn-lg">Let's Talk</a>
-            <a href="index.html#process" class="btn btn-secondary btn-lg">See how we work →</a>
+            <a href="home.html#process" class="btn btn-secondary btn-lg">See how we work →</a>
         </div>
     </div>
 </section>
@@ -645,7 +657,7 @@
     <div data-comment="footer-inner">
         <div data-comment="footer-top">
             <div data-comment="footer-brand">
-                <a href="index.html" data-comment="footer-brand-logo">Rivne Tech</a>
+                <a href="home.html" data-comment="footer-brand-logo">Rivne Tech</a>
                 <p data-comment="footer-brand-tagline">Custom ERP-connected systems for operations that outgrew spreadsheets.</p>
                 <a href="mailto:hello@rivnetech.com" data-comment="footer-email">hello@rivnetech.com</a>
             </div>
@@ -655,7 +667,7 @@
                     <ul class="footer-col-list">
                         <li><a href="solutions.html" class="footer-link">Solutions</a></li>
                         <li><a href="industries.html" class="footer-link">Industries</a></li>
-                        <li><a href="index.html#process" class="footer-link">How we work</a></li>
+                        <li><a href="home.html#process" class="footer-link">How we work</a></li>
                     </ul>
                 </div>
                 <div data-comment="footer-col-connect">
@@ -666,7 +678,17 @@
                 </div>
             </div>
         </div>
-        <div data-comment="footer-wordmark">Rivne Tech</div>
+        <div data-comment="footer-wordmark">
+            <span>Rivne Tech</span>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/company/rivne-web-applications/" target="_blank" rel="noopener" class="footer-social-link" aria-label="LinkedIn">
+                    <i class="ri-linkedin-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/rivnetech" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
+                    <i class="ri-instagram-fill"></i>
+                </a>
+            </div>
+        </div>
         <div data-comment="footer-bottom">
             <span>© 2026 Rivne Tech. All rights reserved.</span>
             <span>Built in Ukraine.</span>
